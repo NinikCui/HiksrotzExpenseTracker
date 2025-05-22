@@ -7,6 +7,10 @@ android {
     namespace = "com.hiksrot.hiksrotzexpensetracker"
     compileSdk = 34
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.hiksrot.hiksrotzexpensetracker"
         minSdk = 24
