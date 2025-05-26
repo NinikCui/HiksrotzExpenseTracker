@@ -5,7 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.hiksrot.hiksrotzexpensetracker.model.BudgetEntity
+import com.hiksrot.hiksrotzexpensetracker.model.entities.BudgetEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
