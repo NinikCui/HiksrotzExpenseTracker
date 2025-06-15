@@ -1,9 +1,6 @@
 package com.hiksrot.hiksrotzexpensetracker.model.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(
     tableName = "budgets",
@@ -12,7 +9,8 @@ import androidx.room.PrimaryKey
         parentColumns = ["id"],
         childColumns = ["user_id"],
         onDelete = ForeignKey.CASCADE
-    )]
+    )],
+    indices = [Index(value = ["user_id"])]
 )
 data class BudgetEntity(
     @ColumnInfo(name = "name")
@@ -22,8 +20,12 @@ data class BudgetEntity(
     var amount: Double,
 
     @ColumnInfo(name = "user_id")
-    var userId: Int
+    var userId: Int,
+
+    @ColumnInfo(name = "created_at")
+    var createdAt: Long = System.currentTimeMillis() / 1000
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }
+

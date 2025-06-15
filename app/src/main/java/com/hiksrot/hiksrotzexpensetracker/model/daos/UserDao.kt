@@ -6,20 +6,25 @@ import com.hiksrot.hiksrotzexpensetracker.model.entities.UserEntity
 @Dao
 interface UserDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     fun register(user: UserEntity)
 
     @Query("SELECT * FROM user WHERE username = :username AND password = :password LIMIT 1")
     fun login(username: String, password: String): UserEntity?
 
-//    ini digunain di halaman profil
     @Query("""
         UPDATE user 
         SET username = :username, 
             password = :password, 
-            firstname = :firstName, 
-            lastname = :lastName 
+            first_name = :firstName, 
+            last_name = :lastName 
         WHERE id = :id
     """)
-    fun updateUser(id: Int, username: String, password: String, firstName: String, lastName: String)
+    fun updateUser(
+        id: Int,
+        username: String,
+        password: String,
+        firstName: String,
+        lastName: String
+    )
 }

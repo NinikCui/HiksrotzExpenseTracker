@@ -1,18 +1,18 @@
 package com.hiksrot.hiksrotzexpensetracker.model.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(
     tableName = "expenses",
-    foreignKeys = [ForeignKey(
-        entity = BudgetEntity::class,
-        parentColumns = ["id"],
-        childColumns = ["budget_id"],
-        onDelete = ForeignKey.CASCADE
-    )]
+    foreignKeys = [
+        ForeignKey(
+            entity = BudgetEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["budget_id"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ],
+    indices = [Index(value = ["budget_id"])]
 )
 data class ExpenseEntity(
     @ColumnInfo(name = "description")

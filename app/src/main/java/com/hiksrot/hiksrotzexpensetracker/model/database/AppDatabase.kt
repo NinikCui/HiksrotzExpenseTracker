@@ -10,7 +10,8 @@ import com.hiksrot.hiksrotzexpensetracker.util.AppDatabaseCallback
 
 @Database(
     entities = [UserEntity::class, BudgetEntity::class, ExpenseEntity::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao

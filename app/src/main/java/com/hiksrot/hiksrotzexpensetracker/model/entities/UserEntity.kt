@@ -12,10 +12,10 @@ data class UserEntity(
     @ColumnInfo(name = "password")
     var password: String,
 
-    @ColumnInfo(name = "firstname")
+    @ColumnInfo(name = "first_name")
     var firstName: String,
 
-    @ColumnInfo(name = "lastname")
+    @ColumnInfo(name = "last_name")
     var lastName: String
 ) {
     @PrimaryKey(autoGenerate = true)
