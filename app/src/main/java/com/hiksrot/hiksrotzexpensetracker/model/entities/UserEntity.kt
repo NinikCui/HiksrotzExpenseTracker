@@ -2,10 +2,22 @@ package com.hiksrot.hiksrotzexpensetracker.model.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.ColumnInfo
 
 @Entity(tableName = "user")
 data class UserEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val username: String,
-    var password: String
-)
+    @ColumnInfo(name = "username")
+    var username: String,
+
+    @ColumnInfo(name = "password")
+    var password: String,
+
+    @ColumnInfo(name = "firstname")
+    var firstName: String,
+
+    @ColumnInfo(name = "lastname")
+    var lastName: String
+) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
+}

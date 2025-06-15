@@ -1,18 +1,25 @@
 package com.hiksrot.hiksrotzexpensetracker.model.daos
 
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.hiksrot.hiksrotzexpensetracker.model.entities.UserEntity
 
-
+@Dao
 interface UserDao {
-    @Insert
-    suspend fun insertUser(user: UserEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun register(user: UserEntity)
 
     @Query("SELECT * FROM user WHERE username = :username AND password = :password LIMIT 1")
-    suspend fun getUser(username: String, password: String): UserEntity?
+    fun login(username: String, password: String): UserEntity?
 
-    @Update
-    suspend fun updateUser(user: UserEntity)
+//    ini digunain di halaman profil
+    @Query("""
+        UPDATE user 
+        SET username = :username, 
+            password = :password, 
+            firstname = :firstName, 
+            lastname = :lastName 
+        WHERE id = :id
+    """)
+    fun updateUser(id: Int, username: String, password: String, firstName: String, lastName: String)
 }

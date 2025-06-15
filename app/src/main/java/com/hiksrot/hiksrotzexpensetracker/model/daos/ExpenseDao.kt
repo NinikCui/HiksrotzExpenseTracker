@@ -1,27 +1,27 @@
 package com.hiksrot.hiksrotzexpensetracker.model.daos
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.hiksrot.hiksrotzexpensetracker.model.entities.ExpenseEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ExpenseDao {
-    @Query("SELECT * FROM expenses")
-    fun getAllExpenses(): Flow<List<ExpenseEntity>>
 
-    @Query("SELECT * FROM expenses WHERE budgetId = :budgetId")
-    fun getExpensesByBudget(budgetId: Int): Flow<List<ExpenseEntity>>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertExpense(expense: ExpenseEntity)
 
-    @Insert
-    suspend fun insertExpense(expense: ExpenseEntity)
+    @Query("SELECT * FROM expenses ORDER BY date DESC")
+    fun getAllExpenses(): List<ExpenseEntity>
+
+    @Query("SELECT * FROM expenses WHERE budget_id = :budgetId ORDER BY date DESC")
+    fun getExpensesByBudget(budgetId: Int): List<ExpenseEntity>
+
+    @Query("SELECT * FROM expenses WHERE id = :id")
+    fun getExpenseById(id: Int): ExpenseEntity
 
     @Update
-    suspend fun updateExpense(expense: ExpenseEntity)
+    fun updateExpense(expense: ExpenseEntity)
 
     @Delete
-    suspend fun deleteExpense(expense: ExpenseEntity)
+    fun deleteExpense(expense: ExpenseEntity)
 }
