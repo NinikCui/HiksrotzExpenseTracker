@@ -6,7 +6,7 @@ import com.hiksrot.hiksrotzexpensetracker.model.entities.UserEntity
 @Dao
 interface UserDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun register(user: UserEntity)
 
     @Query("SELECT * FROM user WHERE username = :username AND password = :password LIMIT 1")
