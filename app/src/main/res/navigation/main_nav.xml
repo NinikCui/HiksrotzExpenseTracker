@@ -8,7 +8,11 @@
     <fragment
         android:id="@+id/itemExpense"
         android:name="com.hiksrot.hiksrotzexpensetracker.view.ExpenseTracker.ExpenseTrackerFragment"
-        android:label="ExpenseTrackerFragment" />
+        android:label="ExpenseTrackerFragment" >
+        <action
+            android:id="@+id/actionNewExpense"
+            app:destination="@id/newExpenseFragment" />
+    </fragment>
     <fragment
         android:id="@+id/itemReport"
         android:name="com.hiksrot.hiksrotzexpensetracker.view.Report.ReportFragment"
@@ -16,10 +20,42 @@
     <fragment
         android:id="@+id/itemProfile"
         android:name="com.hiksrot.hiksrotzexpensetracker.view.Profile.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/actionEditProfile"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/itemBudget"
         android:name="com.hiksrot.hiksrotzexpensetracker.view.Budgeting.BudgetFragment"
         android:label="fragment_budget"
-        tools:layout="@layout/fragment_budget" />
+        tools:layout="@layout/fragment_budget" >
+        <action
+            android:id="@+id/actionNewBudget"
+            app:destination="@id/newBudgetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newBudgetFragment"
+        android:name="com.hiksrot.hiksrotzexpensetracker.view.Budgeting.NewBudgetFragment"
+        android:label="NewBudgetFragment" >
+        <action
+            android:id="@+id/actinBudget"
+            app:destination="@id/itemBudget" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.hiksrot.hiksrotzexpensetracker.view.Profile.EditProfileFragment"
+        android:label="EditProfileFragment" >
+        <action
+            android:id="@+id/actionProfile"
+            app:destination="@id/itemProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/newExpenseFragment"
+        android:name="com.hiksrot.hiksrotzexpensetracker.view.ExpenseTracker.NewExpenseFragment"
+        android:label="NewExpenseFragment" >
+        <action
+            android:id="@+id/actionExpense"
+            app:destination="@id/itemExpense" />
+    </fragment>
 </navigation>
