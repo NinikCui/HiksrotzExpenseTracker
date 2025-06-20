@@ -42,7 +42,7 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/txtTot"
+            android:id="@+id/txtReportAkhir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="IDR 2.950.000 / IDR 6.500.000"

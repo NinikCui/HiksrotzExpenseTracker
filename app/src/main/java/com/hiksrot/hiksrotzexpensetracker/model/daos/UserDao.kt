@@ -27,4 +27,8 @@ interface UserDao {
         firstName: String,
         lastName: String
     )
+
+    @Query("SELECT * FROM user WHERE username = :username LIMIT 1")
+    fun getUserByUsername(username: String): UserEntity?
+
 }
