@@ -1,5 +1,6 @@
 package com.hiksrot.hiksrotzexpensetracker.model.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.hiksrot.hiksrotzexpensetracker.model.entities.BudgetEntity
 import kotlinx.coroutines.flow.Flow
@@ -21,4 +22,7 @@ interface BudgetDao {
 
         @Delete
         fun deleteBudget(budget: BudgetEntity)
+
+
+
 }

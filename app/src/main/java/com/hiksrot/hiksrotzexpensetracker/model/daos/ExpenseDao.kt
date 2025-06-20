@@ -16,6 +16,7 @@ interface ExpenseDao {
     @Query("SELECT * FROM expenses WHERE budget_id = :budgetId ORDER BY date DESC")
     fun getExpensesByBudget(budgetId: Int): List<ExpenseEntity>
 
+
     @Query("SELECT * FROM expenses WHERE id = :id")
     fun getExpenseById(id: Int): ExpenseEntity
 
