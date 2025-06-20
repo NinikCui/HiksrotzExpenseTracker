@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/itemExpense">
+
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.hiksrot.hiksrotzexpensetracker.view.loginReg.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/actionRegister"
-            app:destination="@id/registerFragment" />
-    </fragment>
+        android:id="@+id/itemExpense"
+        android:name="com.hiksrot.hiksrotzexpensetracker.view.ExpenseTracker.ExpenseTrackerFragment"
+        android:label="ExpenseTrackerFragment" />
     <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.hiksrot.hiksrotzexpensetracker.view.loginReg.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
-        <action
-            android:id="@+id/actionLoginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        android:id="@+id/itemReport"
+        android:name="com.hiksrot.hiksrotzexpensetracker.view.Report.ReportFragment"
+        android:label="ReportFragment" />
+    <fragment
+        android:id="@+id/itemProfile"
+        android:name="com.hiksrot.hiksrotzexpensetracker.view.Profile.ProfileFragment"
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/itemBudget"
+        android:name="com.hiksrot.hiksrotzexpensetracker.view.Budgeting.BudgetFragment"
+        android:label="fragment_budget"
+        tools:layout="@layout/fragment_budget" />
 </navigation>

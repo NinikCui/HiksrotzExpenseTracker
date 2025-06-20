@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itemExpense"
+        android:icon="@drawable/baseline_credit_card_24"
+        android:title="Expense Tracker" />
+    <item
+        android:id="@+id/itemBudget"
+        android:icon="@drawable/baseline_pie_chart_24"
+        android:title="Budgeting" />
+    <item
+        android:id="@+id/itemReport"
+        android:icon="@drawable/baseline_candlestick_chart_24"
+        android:title="Report" />
+    <item
+        android:id="@+id/itemProfile"
+        android:icon="@drawable/baseline_people_24"
+        android:title="Profile" />
+</menu>
