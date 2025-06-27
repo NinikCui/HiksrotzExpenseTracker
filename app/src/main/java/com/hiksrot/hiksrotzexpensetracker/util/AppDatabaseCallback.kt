@@ -20,14 +20,13 @@ class AppDatabaseCallback : RoomDatabase.Callback() {
         db.execSQL("INSERT INTO budgets (id, name, amount, user_id, created_at) VALUES (5, 'Hiburan', 400000, 3, 1718300004)")
 
         // ==== Insert Expense Dummy ====
-        // 2025-06-14 00:00 UTC → 1749859200000
-        db.execSQL("INSERT INTO expenses (id, description, amount, date, budget_id, user_id) VALUES (1, 'Nasi Goreng', 25000, 1749859200000, 1, 1)")
-        db.execSQL("INSERT INTO expenses (id, description, amount, date, budget_id, user_id) VALUES (2, 'Naik Gojek', 18000, 1749859200000, 2, 1)")
 
-// 2025-06-13 00:00 UTC → 1749772800000
+        db.execSQL("INSERT INTO expenses (id, description, amount, date, budget_id, user_id) VALUES (1, 'Nasi Goreng enak pedis pedas uyeaahhhhhhhhhhhhhhhhhhhh', 25000, 1749988800000, 1, 1)")
+        db.execSQL("INSERT INTO expenses (id, description, amount, date, budget_id, user_id) VALUES (6, 'Beli Es Teh Jumbo', 50000, 1749996000000, 2, 1)")
+        db.execSQL("INSERT INTO expenses (id, description, amount, date, budget_id, user_id) VALUES (2, 'Naik Gojek ngiiiiihhaaaaaaa', 18000, 1749992400000, 2, 1)")
+
         db.execSQL("INSERT INTO expenses (id, description, amount, date, budget_id, user_id) VALUES (3, 'Ayam Geprek', 28000, 1749772800000, 3, 2)")
         db.execSQL("INSERT INTO expenses (id, description, amount, date, budget_id, user_id) VALUES (4, 'Boba Drink', 22000, 1749772800000, 4, 2)")
 
-// 2025-06-12 00:00 UTC → 1749686400000
         db.execSQL("INSERT INTO expenses (id, description, amount, date, budget_id, user_id) VALUES (5, 'Nonton Bioskop', 50000, 1749686400000, 5, 3)")    }
 }

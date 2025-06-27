@@ -13,10 +13,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{listener::onExpenseItemClick}"
+        android:orientation="horizontal"
+        android:layout_marginVertical="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{(v) -> listener.onExpenseItemClick(v, expense)}"
         android:tag="@{expense}">
 
-        <!-- Tanggal & Nama Budget -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -41,7 +44,6 @@
                 android:layout_marginTop="6dp"/>
         </LinearLayout>
 
-        <!-- Nominal -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

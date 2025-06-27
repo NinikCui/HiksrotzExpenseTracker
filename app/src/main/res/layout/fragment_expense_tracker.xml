@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         android:padding="24dp">
 
-        <!-- Judul -->
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="wrap_content"
@@ -23,15 +22,14 @@
             android:textStyle="bold"
             android:textColor="#333333"/>
 
-        <!-- RecyclerView untuk list expense -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recExpense"
             android:layout_below="@id/textTitle"
             android:layout_above="@id/fabAddExpense"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:paddingVertical="16dp"/>
 
-        <!-- Pesan kosong -->
         <TextView
             android:id="@+id/txtError"
             android:layout_width="wrap_content"
@@ -42,7 +40,6 @@
             android:textSize="16sp"
             android:textColor="#666"/>
 
-        <!-- Loader -->
         <ProgressBar
             android:id="@+id/progressLoad"
             style="?android:attr/progressBarStyleLarge"
@@ -51,7 +48,6 @@
             android:layout_centerInParent="true"
             android:visibility="gone"/>
 
-        <!-- FAB Tambah Expense -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAddExpense"
             android:layout_width="wrap_content"

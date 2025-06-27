@@ -9,8 +9,6 @@ import com.hiksrot.hiksrotzexpensetracker.R
 
 
 class NewExpenseFragment : Fragment() {
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -18,5 +16,4 @@ class NewExpenseFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_new_expense, container, false)
     }
-
 }

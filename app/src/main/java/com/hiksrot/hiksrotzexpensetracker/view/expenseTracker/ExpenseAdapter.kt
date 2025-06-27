@@ -1,12 +1,10 @@
 package com.hiksrot.hiksrotzexpensetracker.view.expenseTracker
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hiksrot.hiksrotzexpensetracker.databinding.ExpenseItemBinding
 import com.hiksrot.hiksrotzexpensetracker.model.dto.ExpenseItem
-import com.hiksrot.hiksrotzexpensetracker.model.entities.ExpenseEntity
 
 class ExpenseAdapter(
     private val expenseList: MutableList<ExpenseItem>,
@@ -24,6 +22,7 @@ class ExpenseAdapter(
 
     override fun onBindViewHolder(holder: VH, pos: Int) {
         holder.binding.expense = expenseList[pos]
+        holder.binding.listener = listener
     }
 
     override fun getItemCount() = expenseList.size

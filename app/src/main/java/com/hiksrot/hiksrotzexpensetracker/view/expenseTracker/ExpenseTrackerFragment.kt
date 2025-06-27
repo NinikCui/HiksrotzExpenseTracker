@@ -10,9 +10,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hiksrot.hiksrotzexpensetracker.databinding.DialogExpenseDetailBinding
 import com.hiksrot.hiksrotzexpensetracker.databinding.FragmentExpenseTrackerBinding
+import com.hiksrot.hiksrotzexpensetracker.model.dto.ExpenseItem
 import com.hiksrot.hiksrotzexpensetracker.model.entities.ExpenseEntity
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.ExpenseViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 class ExpenseTrackerFragment : Fragment(), ExpenseClickListener {
 
@@ -37,11 +43,17 @@ class ExpenseTrackerFragment : Fragment(), ExpenseClickListener {
         // 2) setup ViewModel & data
         vm = ViewModelProvider(this).get(ExpenseViewModel::class.java)
         vm.fetchExpenses(1)
-//aria
-//        // 3) setup RecyclerView + adapter
+
+        // 3) setup RecyclerView + adapter
         adapter = ExpenseAdapter(mutableListOf(), this)
         binding.recExpense.layoutManager = LinearLayoutManager(context)
-        binding.recExpense.adapter       = adapter
+        binding.recExpense.adapter = adapter
+
+        val testTimestamp = 1749988800000L
+        val sdf = SimpleDateFormat("dd MMM yyyy hh.mm a", Locale("id")).apply {
+            timeZone = TimeZone.getTimeZone("Asia/Jakarta")
+        }
+        Log.d("WAKTUDEBUG", "Waktu format: ${sdf.format(Date(testTimestamp))}")
 
         // 4) observe
         vm.expensesLD.observe(viewLifecycleOwner) {
@@ -50,15 +62,27 @@ class ExpenseTrackerFragment : Fragment(), ExpenseClickListener {
         }
     }
 
-
-    // ==== ExpenseClickListener ====
     override fun onAddExpenseClick(v: View) {
         val action = ExpenseTrackerFragmentDirections
             .actionNewExpense()
         Navigation.findNavController(v).navigate(action)
     }
 
-    override fun onExpenseItemClick(v: View) {
-        val expense = v.tag as ExpenseEntity
+    override fun onExpenseItemClick(v: View, exp: ExpenseItem) {
+        Log.d("EXPENSECLICK", "Clicked expense = $exp")
+
+        val dialogBinding = DialogExpenseDetailBinding.inflate(layoutInflater)
+
+        dialogBinding.exp = exp
+
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            .setView(dialogBinding.root)
+            .create()
+
+        dialogBinding.btnClose.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 }
