@@ -1,90 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F9F1FC"
-    android:padding="24dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app   ="http://schemas.android.com/apk/res-auto">
 
-    <!-- Title -->
-    <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Expense Tracker"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#333333"
-        android:layout_marginBottom="16dp" />
+    <data>
+        <variable
+            name="listener"
+            type="com.hiksrot.hiksrotzexpensetracker.view.expenseTracker.ExpenseClickListener"/>
+    </data>
 
-    <!-- Expense List -->
-    <LinearLayout
-        android:id="@+id/expenseList"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textTitle"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:padding="24dp">
 
-        <!-- Example Item (repeat in Java/Kotlin if dynamic) -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <!-- Judul -->
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_vertical">
+            android:text="Expense Tracker"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#333333"/>
 
-            <!-- Left Info -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        <!-- RecyclerView untuk list expense -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recExpense"
+            android:layout_below="@id/textTitle"
+            android:layout_above="@id/fabAddExpense"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="19 Mei 2025 10.15 AM"
-                    android:textSize="14sp"
-                    android:textColor="#333333" />
+        <!-- Pesan kosong -->
+        <TextView
+            android:id="@+id/txtError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:text="No expenses yet"
+            android:textSize="16sp"
+            android:textColor="#666"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Makan Minum"
-                    android:textSize="14sp"
-                    android:textColor="#333333"
-                    android:background="@drawable/badge_background"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:layout_marginTop="6dp" />
-            </LinearLayout>
+        <!-- Loader -->
+        <ProgressBar
+            android:id="@+id/progressLoad"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
 
-            <!-- Right Amount -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="IDR 170.000"
-                android:textSize="16sp"
-                android:textColor="#333333"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- Tambahkan item lainnya dengan pola yang sama di atas -->
-
-    </LinearLayout>
-
-    <!-- Floating Action Button -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddExpense"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="24dp"
-        android:contentDescription="Add Expense"
-        app:backgroundTint="#E0D4FA"
-        app:elevation="8dp"
-        app:srcCompat="@android:drawable/ic_input_add" />
-</RelativeLayout>
+        <!-- FAB Tambah Expense -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAddExpense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="24dp"
+            android:contentDescription="Add Expense"
+            app:backgroundTint="#E0D4FA"
+            app:elevation="8dp"
+            android:onClick="@{listener::onAddExpenseClick}"
+            app:srcCompat="@android:drawable/ic_input_add"/>
+    </RelativeLayout>
+</layout>

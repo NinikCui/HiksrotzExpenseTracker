@@ -1,13 +1,11 @@
 package com.hiksrot.hiksrotzexpensetracker.view.Report
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hiksrot.hiksrotzexpensetracker.databinding.ReportCardLayoutBinding
-import com.hiksrot.hiksrotzexpensetracker.model.entities.BudgetEntity
-import com.hiksrot.hiksrotzexpensetracker.model.entities.BudgetItem
-import com.hiksrot.hiksrotzexpensetracker.model.entities.ExpenseEntity
+import com.hiksrot.hiksrotzexpensetracker.model.dto.BudgetItem
+
 class ReportAdapter(
     private var budgetItems: MutableList<BudgetItem>
 ) : RecyclerView.Adapter<ReportAdapter.ReportViewHolder>() {

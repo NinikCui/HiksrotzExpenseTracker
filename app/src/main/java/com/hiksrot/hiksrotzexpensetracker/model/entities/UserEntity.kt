@@ -6,10 +6,8 @@ import androidx.room.ColumnInfo
 
 @Entity(tableName = "user")
 data class UserEntity(
-    @ColumnInfo(name = "username")
     var username: String,
 
-    @ColumnInfo(name = "password")
     var password: String,
 
     @ColumnInfo(name = "first_name")
