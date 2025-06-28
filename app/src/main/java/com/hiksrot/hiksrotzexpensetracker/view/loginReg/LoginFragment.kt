@@ -37,11 +37,11 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
             val username = binding.txtUsername.text.toString().trim()
             val password = binding.txtPassword.text.toString().trim()
-
+            val hashedPassword = viewModel.hashPassword(password)
             if (username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(requireContext(), "Isi username dan password", Toast.LENGTH_SHORT).show()
             } else {
-                viewModel.login(username, password)
+                viewModel.login(username, hashedPassword)
             }
         }
 
@@ -49,6 +49,12 @@ class LoginFragment : Fragment() {
             if (success) {
                 val user = viewModel.loggedInUser.value
                 if (user != null) {
+                    // Simpan user ID ke SharedPreferences
+                    val sharedPref = requireContext().getSharedPreferences("user_session", 0)
+                    val editor = sharedPref.edit()
+                    editor.putInt("user_id", user.id)
+                    editor.apply()
+
                     val intent = Intent(requireContext(), MainActivity::class.java)
                     intent.putExtra("username", user.username)
                     startActivity(intent)

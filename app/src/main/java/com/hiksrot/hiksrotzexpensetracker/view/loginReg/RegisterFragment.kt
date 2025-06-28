@@ -59,7 +59,8 @@ class RegisterFragment : Fragment() {
                     return@setOnClickListener
                 }
 
-                val user = UserEntity(username, password, firstName, lastName)
+                val hashedPassword = viewModel.hashPassword(password)
+                val user = UserEntity(username, hashedPassword, firstName, lastName)
                 viewModel.Register(user)
 
                 Toast.makeText(requireContext(), "Account created!", Toast.LENGTH_SHORT).show()

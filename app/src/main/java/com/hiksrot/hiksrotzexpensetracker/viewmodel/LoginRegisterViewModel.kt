@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.hiksrot.hiksrotzexpensetracker.model.entities.UserEntity
 import com.hiksrot.hiksrotzexpensetracker.util.buildDb
 import kotlinx.coroutines.*
+import java.security.MessageDigest
 import kotlin.coroutines.CoroutineContext
 
 class LoginRegisterViewModel(application: Application) : AndroidViewModel(application),
@@ -45,6 +46,11 @@ class LoginRegisterViewModel(application: Application) : AndroidViewModel(applic
             val db = buildDb(getApplication())
             db.userDao().register(user)
         }
+    }
+
+    fun hashPassword(password: String): String {
+        val bytes = MessageDigest.getInstance("SHA-256").digest(password.toByteArray())
+        return bytes.joinToString("") { "%02x".format(it) }
     }
 
     override fun onCleared() {
