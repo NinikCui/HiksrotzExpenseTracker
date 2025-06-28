@@ -11,8 +11,5 @@ class LoginRegActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLogregBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
     }
-
-
 }

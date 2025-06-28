@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.hiksrot.hiksrotzexpensetracker.databinding.FragmentNewExpenseBinding
 import com.hiksrot.hiksrotzexpensetracker.model.entities.BudgetEntity
+import com.hiksrot.hiksrotzexpensetracker.util.SessionManager
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.NewExpenseViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -40,7 +41,10 @@ class NewExpenseFragment : Fragment(), NewExpenseListener {
         val sdf = SimpleDateFormat("dd MMM yyyy", Locale("id"))
         binding.textDate.text = sdf.format(Date())
 
-        vm.loadBudgets()
+        val userId = SessionManager.getUserId(requireContext())
+        if (userId != -1) {
+            vm.loadBudgets(userId)
+        }
 
         observeViewModel()
 
@@ -93,11 +97,16 @@ class NewExpenseFragment : Fragment(), NewExpenseListener {
             binding.progressBarBudget.progress = pct
         }
 
-        vm.nominal.observe(viewLifecycleOwner)        { updateUI() }
-        vm.budgetUsed.observe(viewLifecycleOwner)     { updateUI() }
-        vm.selectedBudget.observe(viewLifecycleOwner) { updateUI() }
+        vm.nominal.observe(viewLifecycleOwner) {
+            updateUI()
+        }
+        vm.budgetUsed.observe(viewLifecycleOwner) {
+            updateUI()
+        }
+        vm.selectedBudget.observe(viewLifecycleOwner) {
+            updateUI()
+        }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

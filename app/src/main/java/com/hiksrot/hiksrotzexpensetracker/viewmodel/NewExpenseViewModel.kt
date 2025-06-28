@@ -22,9 +22,9 @@ class NewExpenseViewModel(application: Application)
     val nominal = MutableLiveData<String>()
     val note = MutableLiveData<String>()
 
-    fun loadBudgets() {
+    fun loadBudgets(userId: Int) {
         launch {
-            val list = buildDb(getApplication()).budgetDao().getBudgetsByUser(1)
+            val list = buildDb(getApplication()).budgetDao().getBudgetsByUser(userId)
             budgets.postValue(list)
         }
     }

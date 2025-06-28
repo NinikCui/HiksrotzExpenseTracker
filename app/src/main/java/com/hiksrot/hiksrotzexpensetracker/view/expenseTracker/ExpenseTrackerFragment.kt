@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hiksrot.hiksrotzexpensetracker.databinding.DialogExpenseDetailBinding
 import com.hiksrot.hiksrotzexpensetracker.databinding.FragmentExpenseTrackerBinding
 import com.hiksrot.hiksrotzexpensetracker.model.dto.ExpenseItem
+import com.hiksrot.hiksrotzexpensetracker.util.SessionManager
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.ExpenseViewModel
 
 class ExpenseTrackerFragment : Fragment(), ExpenseListListener {
@@ -34,9 +35,13 @@ class ExpenseTrackerFragment : Fragment(), ExpenseListListener {
         // 1) setup binding listener untuk FAB
         binding.listener = this
 
+        val userId = SessionManager.getUserId(requireContext())
+
         // 2) setup ViewModel & data
         vm = ViewModelProvider(this).get(ExpenseViewModel::class.java)
-        vm.fetchExpenses(1)
+        if (userId != -1) {
+            vm.fetchExpenses(userId)
+        }
 
         // 3) setup RecyclerView + adapter
         adapter = ExpenseAdapter(mutableListOf(), this)
