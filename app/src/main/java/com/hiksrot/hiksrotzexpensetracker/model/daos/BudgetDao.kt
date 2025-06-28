@@ -22,7 +22,4 @@ interface BudgetDao {
 
         @Delete
         fun deleteBudget(budget: BudgetEntity)
-
-
-
 }

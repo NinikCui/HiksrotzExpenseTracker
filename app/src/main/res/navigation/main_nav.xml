@@ -7,12 +7,13 @@
 
     <fragment
         android:id="@+id/itemExpense"
-        android:name="com.hiksrot.hiksrotzexpensetracker.view.ExpenseTracker.ExpenseTrackerFragment"
+        android:name="com.hiksrot.hiksrotzexpensetracker.view.expenseTracker.ExpenseTrackerFragment"
         android:label="ExpenseTrackerFragment" >
         <action
             android:id="@+id/actionNewExpense"
             app:destination="@id/newExpenseFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/itemReport"
         android:name="com.hiksrot.hiksrotzexpensetracker.view.Report.ReportFragment"
@@ -52,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/newExpenseFragment"
-        android:name="com.hiksrot.hiksrotzexpensetracker.view.ExpenseTracker.NewExpenseFragment"
+        android:name="com.hiksrot.hiksrotzexpensetracker.view.expenseTracker.NewExpenseFragment"
         android:label="NewExpenseFragment" >
         <action
             android:id="@+id/actionExpense"

@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hiksrot.hiksrotzexpensetracker.databinding.FragmentReportBinding
-import com.hiksrot.hiksrotzexpensetracker.model.entities.BudgetItem
+import com.hiksrot.hiksrotzexpensetracker.model.dto.BudgetItem
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.LoginRegisterViewModel
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.ReportViewModel
 
@@ -37,7 +37,6 @@ class ReportFragment : Fragment() {
         userModel.loggedInUser.observe(viewLifecycleOwner) { user ->
             if (user != null) {
                 viewModel.fetchBudgetItems(user.id)
-                Toast.makeText(requireContext(), "Selamat datang ${user.username}", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireContext(), "User belum login", Toast.LENGTH_SHORT).show()
             }
@@ -57,7 +56,6 @@ class ReportFragment : Fragment() {
             binding.txtReportAkhir.text = summaryText
         }
     }
-
 
     private fun setupRecyclerView() {
         reportAdapter = ReportAdapter(mutableListOf<BudgetItem>())

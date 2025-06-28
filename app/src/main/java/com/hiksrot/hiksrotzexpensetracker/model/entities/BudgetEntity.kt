@@ -13,10 +13,8 @@ import androidx.room.*
     indices = [Index(value = ["user_id"])]
 )
 data class BudgetEntity(
-    @ColumnInfo(name = "name")
     var name: String,
 
-    @ColumnInfo(name = "amount")
     var amount: Double,
 
     @ColumnInfo(name = "user_id")

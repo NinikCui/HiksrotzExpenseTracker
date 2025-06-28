@@ -6,26 +6,33 @@ import androidx.room.*
     tableName = "expenses",
     foreignKeys = [
         ForeignKey(
+            entity = UserEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["user_id"],
+            onDelete = ForeignKey.CASCADE
+        ),
+        ForeignKey(
             entity = BudgetEntity::class,
             parentColumns = ["id"],
             childColumns = ["budget_id"],
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index(value = ["budget_id"])]
+    indices = [Index("user_id"), Index(value = ["budget_id"])]
 )
 data class ExpenseEntity(
-    @ColumnInfo(name = "description")
+
     var description: String,
 
-    @ColumnInfo(name = "amount")
     var amount: Double,
 
-    @ColumnInfo(name = "date")
-    var date: String,
+    val date: Long,
 
     @ColumnInfo(name = "budget_id")
-    var budgetId: Int
+    var budgetId: Int,
+
+    @ColumnInfo(name = "user_id")
+    val userId: Int,
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

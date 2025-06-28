@@ -1,4 +1,4 @@
-package com.hiksrot.hiksrotzexpensetracker.model.entities
+package com.hiksrot.hiksrotzexpensetracker.model.dto
 
 data class BudgetItem(
     val name: String,
