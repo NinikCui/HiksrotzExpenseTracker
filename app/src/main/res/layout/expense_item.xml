@@ -7,7 +7,7 @@
             type="com.hiksrot.hiksrotzexpensetracker.model.dto.ExpenseItem" />
         <variable
             name="listener"
-            type="com.hiksrot.hiksrotzexpensetracker.view.expenseTracker.ExpenseClickListener" />
+            type="com.hiksrot.hiksrotzexpensetracker.view.expenseTracker.ExpenseListListener" />
     </data>
 
     <LinearLayout

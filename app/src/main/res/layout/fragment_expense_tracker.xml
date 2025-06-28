@@ -5,7 +5,7 @@
     <data>
         <variable
             name="listener"
-            type="com.hiksrot.hiksrotzexpensetracker.view.expenseTracker.ExpenseClickListener"/>
+            type="com.hiksrot.hiksrotzexpensetracker.view.expenseTracker.ExpenseListListener"/>
     </data>
 
     <RelativeLayout
@@ -58,7 +58,7 @@
             android:contentDescription="Add Expense"
             app:backgroundTint="#E0D4FA"
             app:elevation="8dp"
-            android:onClick="@{listener::onAddExpenseClick}"
+            android:onClick="@{listener::onFABAddExpenseClick}"
             app:srcCompat="@android:drawable/ic_input_add"/>
     </RelativeLayout>
 </layout>

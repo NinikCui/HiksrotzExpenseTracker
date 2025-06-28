@@ -6,21 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hiksrot.hiksrotzexpensetracker.databinding.DialogExpenseDetailBinding
 import com.hiksrot.hiksrotzexpensetracker.databinding.FragmentExpenseTrackerBinding
 import com.hiksrot.hiksrotzexpensetracker.model.dto.ExpenseItem
-import com.hiksrot.hiksrotzexpensetracker.model.entities.ExpenseEntity
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.ExpenseViewModel
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
 
-class ExpenseTrackerFragment : Fragment(), ExpenseClickListener {
+class ExpenseTrackerFragment : Fragment(), ExpenseListListener {
 
     private lateinit var binding: FragmentExpenseTrackerBinding
     private lateinit var vm: ExpenseViewModel
@@ -49,12 +43,6 @@ class ExpenseTrackerFragment : Fragment(), ExpenseClickListener {
         binding.recExpense.layoutManager = LinearLayoutManager(context)
         binding.recExpense.adapter = adapter
 
-        val testTimestamp = 1749988800000L
-        val sdf = SimpleDateFormat("dd MMM yyyy hh.mm a", Locale("id")).apply {
-            timeZone = TimeZone.getTimeZone("Asia/Jakarta")
-        }
-        Log.d("WAKTUDEBUG", "Waktu format: ${sdf.format(Date(testTimestamp))}")
-
         // 4) observe
         vm.expensesLD.observe(viewLifecycleOwner) {
             adapter.updateList(it)
@@ -62,7 +50,7 @@ class ExpenseTrackerFragment : Fragment(), ExpenseClickListener {
         }
     }
 
-    override fun onAddExpenseClick(v: View) {
+    override fun onFABAddExpenseClick(v: View) {
         val action = ExpenseTrackerFragmentDirections
             .actionNewExpense()
         Navigation.findNavController(v).navigate(action)

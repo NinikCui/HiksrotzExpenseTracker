@@ -1,142 +1,153 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F9F1FC"
-    android:padding="24dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+        <variable
+            name="vm"
+            type="com.hiksrot.hiksrotzexpensetracker.viewmodel.NewExpenseViewModel" />
+        <variable
+            name="listener"
+            type="com.hiksrot.hiksrotzexpensetracker.view.expenseTracker.NewExpenseListener" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="#F9F1FC"
+        android:padding="24dp">
 
-        <!-- Title -->
-        <TextView
-            android:id="@+id/titleNewExpense"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Expense"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Date Label -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date"
-            android:textSize="14sp"
-            android:textColor="#333333" />
-
-        <!-- Date Value -->
-        <TextView
-            android:id="@+id/textDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="19 Mei 2025"
-            android:textSize="16sp"
-            android:textColor="#333333"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Spinner for Category -->
-        <Spinner
-            android:id="@+id/spinnerCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="@android:drawable/btn_dropdown" />
-
-        <!-- Budget Progress Info -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
+            <!-- Title -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="IDR 400.000"
+                android:text="New Expense"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 android:textColor="#333333"
-                android:textSize="14sp" />
+                android:layout_marginBottom="16dp" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
+            <!-- Date -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="IDR 1.000.000"
-                android:textColor="#333333"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <!-- Progress Bar -->
-        <ProgressBar
-            android:id="@+id/progressBarBudget"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:progress="40"
-            android:max="100"
-            android:progressDrawable="@drawable/progress_custom"
-            android:layout_marginBottom="24dp" />
-
-        <!-- Nominal Input -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/edittext_background"
-            android:padding="12dp"
-            android:layout_marginBottom="16dp">
+                android:text="Date"
+                android:textSize="14sp"
+                android:textColor="#333333" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/textDate"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="$"
+                android:text="28 Jun 2025"
                 android:textSize="16sp"
-                android:paddingEnd="8dp" />
+                android:textColor="#333333"
+                android:layout_marginBottom="16dp" />
 
-            <EditText
-                android:id="@+id/editTextNominal"
-                android:layout_width="0dp"
+            <!-- Spinner -->
+            <Spinner
+                android:id="@+id/spinnerCategory"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Nominal (IDR 600.000 left)"
-                android:inputType="number"
-                android:background="@android:color/transparent"
-                android:textSize="16sp" />
+                android:layout_marginBottom="16dp"
+                android:background="@android:drawable/btn_dropdown" />
+
+            <!-- Budget Info Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{`IDR ` + String.format(`%,.0f`, vm.budgetUsed)}'
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{`IDR ` + String.format(`%,.0f`, vm.selectedBudget.amount)}'
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Progress Bar -->
+            <ProgressBar
+                android:id="@+id/progressBarBudget"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:max="100"
+                android:progress="@{vm.progressPercent}"
+                android:progressDrawable="@drawable/progress_custom"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Nominal Input -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/edittext_background"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="IDR"
+                    android:textSize="16sp"
+                    android:paddingEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/editTextNominal"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:background="@android:color/transparent"
+                    android:textSize="16sp"
+                    android:text="@={vm.nominal}"
+                    android:hint="@{`Nominal (IDR ` + (int) vm.remainingBudget + ` left)`}" />
+            </LinearLayout>
+
+            <!-- Notes -->
+            <EditText
+                android:id="@+id/editTextNotes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_background"
+                android:padding="12dp"
+                android:layout_marginBottom="24dp"
+                android:textSize="16sp"
+                android:text="@={vm.note}"
+                android:hint="Notes, i.e: Bayar Gojek/Gofood" />
+
+            <!-- Submit Button -->
+            <Button
+                android:id="@+id/buttonAddExpense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADD EXPENSE"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#7B1FA2"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:layout_gravity="end"
+                android:elevation="4dp"
+                android:onClick="@{(v) -> listener.onAddExpenseClick(v)}"/>
         </LinearLayout>
-
-        <!-- Notes Input -->
-        <EditText
-            android:id="@+id/editTextNotes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Notes, i.e: Bayar Gojek/Gofood"
-            android:background="@drawable/edittext_background"
-            android:padding="12dp"
-            android:layout_marginBottom="24dp"
-            android:textSize="16sp" />
-
-        <!-- Add Expense Button -->
-        <Button
-            android:id="@+id/buttonAddExpense"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ADD EXPENSE"
-            android:textAllCaps="true"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#7B1FA2"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
-            android:layout_gravity="end"
-            android:elevation="4dp" />
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</layout>

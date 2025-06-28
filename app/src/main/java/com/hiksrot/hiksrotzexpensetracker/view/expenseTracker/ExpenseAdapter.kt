@@ -8,7 +8,7 @@ import com.hiksrot.hiksrotzexpensetracker.model.dto.ExpenseItem
 
 class ExpenseAdapter(
     private val expenseList: MutableList<ExpenseItem>,
-    private val listener: ExpenseClickListener
+    private val listener: ExpenseListListener
 ) : RecyclerView.Adapter<ExpenseAdapter.VH>() {
 
     inner class VH(val binding: ExpenseItemBinding)
