@@ -2,4 +2,77 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Primary & Accent Colors -->
+    <color name="primaryBlue">#2954D1</color> <!-- latar biru utama -->
+    <color name="lightBlue">#85A6F0</color>   <!-- grafik/statistik -->
+    <color name="toggleBlue">#3D4EB4</color>  <!-- toggle switch aktif -->
+
+    <!-- Card & Background -->
+    <color name="cardLightGray">#F6F6F6</color> <!-- latar kartu donut chart -->
+    <color name="cardDarkGray">#D9D9D9</color>  <!-- latar akun pasif -->
+    <color name="softGray">#E0E0E0</color>      <!-- divider/garis -->
+
+    <!-- Purple & Variants -->
+    <color name="purpleDark">#5D3EFF</color>  <!-- warna grafik donut -->
+    <color name="purpleLight">#AF9EFF</color> <!-- warna sekunder grafik -->
+
+    <!-- Pink & Variants -->
+    <color name="pinkSoft">#FF8FCF</color>    <!-- warna sektor donut -->
+    <color name="pinkStrong">#FD3D7D</color>  <!-- indikator naik 8.65% -->
+
+    <!-- Green -->
+    <color name="greenPositive">#4CD964</color> <!-- indikator positif 6.12% -->
+
+    <!-- Red -->
+    <color name="redNegative">#FF3B30</color>  <!-- indikator negatif 3.42% -->
+
+    <!-- Text & Secondary -->
+    <color name="textDark">#333333</color>
+    <color name="textLightGray">#888888</color>
+
+    <color name="gradientStart">#FF2F309B</color>
+    <color name="gradientEnd">#FF4D54B2</color>
+
+    <!-- 1) BENTUK ROUNDED -->
+    <style name="Shape.Rounded16" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <!-- 2) TEXT INPUT LAYOUT (OutlinedBox) -->
+    <style name="Widget.ET.TextInput.Outlined"
+        parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxStrokeColor">@color/primaryBlue</item>
+        <!-- Tanpa prefix android: -->
+        <item name="hintTextColor">@color/textLightGray</item>
+        <item name="shapeAppearance">@style/Shape.Rounded16</item>
+    </style>
+
+    <!-- 3) TEXT INPUT EDITTEXT -->
+    <style name="Widget.ET.TextInput.EditText"
+        parent="Widget.Material3.TextInputEditText.FilledBox.Dense">
+        <item name="android:textColor">@color/textDark</item>
+        <!-- Ini atribut EditText yang benar untuk hint -->
+        <item name="android:textColorHint">@color/textLightGray</item>
+    </style>
+
+    <!-- 4) LOGIN BUTTON (Filled) -->
+    <!-- Di MD3, gunakan ElevatedButton untuk tombol “filled” tanpa shadow custom -->
+    <style name="Widget.ET.Button.Login"
+        parent="Widget.Material3.Button.ElevatedButton">
+        <item name="android:backgroundTint">@color/primaryBlue</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="shapeAppearance">@style/Shape.Rounded16</item>
+    </style>
+
+    <!-- 5) SIGNUP BUTTON (Outlined) -->
+    <style name="Widget.ET.Button.SignUp"
+        parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:strokeColor">@color/primaryBlue</item>
+        <item name="android:textColor">@color/primaryBlue</item>
+        <item name="shapeAppearance">@style/Shape.Rounded16</item>
+    </style>
+
 </resources>
