@@ -1,5 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app   ="http://schemas.android.com/apk/res-auto">
+    xmlns:app   ="http://schemas.android.com/apk/res-auto"
+    xmlns:tools ="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -10,46 +11,67 @@
             type="com.hiksrot.hiksrotzexpensetracker.view.expenseTracker.ExpenseListListener" />
     </data>
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginVertical="8dp"
+        android:layout_margin="8dp"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{(v) -> listener.onExpenseItemClick(v, expense)}"
-        android:tag="@{expense}">
+        android:onClick="@{(v)->listener.onExpenseItemClick(v, expense)}"
+        android:tag="@{expense}"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true"
+        app:strokeColor="@color/softGray"
+        app:strokeWidth="1dp">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextAppearance.Material3.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textLightGray"
+                    app:formattedDate="@{expense.date}"
+                    tools:text="28 Jun 2025 03.07 PM" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@{expense.budgetName}"
+                    tools:text="Makan"
+                    app:chipStrokeColor="@color/primaryBlue"
+                    app:chipStrokeWidth="1dp"
+                    app:chipCornerRadius="8dp"
+                    app:chipIcon="@drawable/ic_outline_label_24"
+                    app:chipIconTint="@color/primaryBlue"
+                    app:iconStartPadding="4dp"
+                    app:closeIconEnabled="false" />
+
+            </LinearLayout>
 
             <TextView
+                style="@style/TextAppearance.Material3.TitleMedium"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:formattedDate="@{expense.date}"
-                android:textSize="14sp"
-                android:textColor="#333333"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text='@{expense.budgetName}'
-                android:textSize="14sp"
-                android:textColor="#333333"
-                android:background="@drawable/badge_background"
-                android:padding="4dp"
-                android:layout_marginTop="6dp"/>
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|end"
+                android:textStyle="bold"
+                android:textColor="@color/textDark"
+                app:text='@{"IDR " + expense.amount}'
+                tools:text="IDR 10000.0" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text='@{"IDR " + expense.amount}'
-            android:textSize="16sp"
-            android:textColor="#333333"
-            android:textStyle="bold"/>
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

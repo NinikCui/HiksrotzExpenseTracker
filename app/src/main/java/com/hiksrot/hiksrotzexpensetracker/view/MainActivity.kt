@@ -26,9 +26,9 @@ class MainActivity : AppCompatActivity() {
             viewModel.fetchUserByUsername(username)
         }
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentHost) as NavHostFragment
-        val navController = navHostFragment.navController
+            val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentHost) as NavHostFragment
+            val navController = navHostFragment.navController
 
-        binding.bottomNav.setupWithNavController(navController)
+            binding.bottomNav.setupWithNavController(navController)
     }
 }

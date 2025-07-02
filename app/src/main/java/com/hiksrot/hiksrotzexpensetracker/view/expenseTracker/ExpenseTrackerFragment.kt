@@ -57,7 +57,7 @@ class ExpenseTrackerFragment : Fragment(), ExpenseListListener {
 
     override fun onFABAddExpenseClick(v: View) {
         val action = ExpenseTrackerFragmentDirections
-            .actionNewExpense()
+            .actionToNewExpenseFragment()
         Navigation.findNavController(v).navigate(action)
     }
 

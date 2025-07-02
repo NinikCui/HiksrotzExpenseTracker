@@ -13,11 +13,11 @@ class AppDatabaseCallback : RoomDatabase.Callback() {
         db.execSQL("INSERT INTO user (id, username, password, first_name, last_name) VALUES (3, 'nadya', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'Nadya', 'Eliana')")
 
         // ==== Insert Budget Dummy ====
-        db.execSQL("INSERT INTO budgets (id, name, amount, user_id, created_at) VALUES (1, 'Makan', 500000, 1, 1718300000)")
-        db.execSQL("INSERT INTO budgets (id, name, amount, user_id, created_at) VALUES (2, 'Transport', 300000, 1, 1718300001)")
-        db.execSQL("INSERT INTO budgets (id, name, amount, user_id, created_at) VALUES (3, 'Makan', 600000, 2, 1718300002)")
-        db.execSQL("INSERT INTO budgets (id, name, amount, user_id, created_at) VALUES (4, 'Jajan', 200000, 2, 1718300003)")
-        db.execSQL("INSERT INTO budgets (id, name, amount, user_id, created_at) VALUES (5, 'Hiburan', 400000, 3, 1718300004)")
+        db.execSQL("INSERT INTO budgets (id, name, amount, user_id, created_at, month, year) VALUES (1, 'Makan', 500000, 1, 1718300000, 7, 2025)")
+        db.execSQL("INSERT INTO budgets (id, name, amount, user_id, created_at, month, year) VALUES (2, 'Transport', 300000, 1, 1718300001, 7, 2025)")
+        db.execSQL("INSERT INTO budgets (id, name, amount, user_id, created_at, month, year) VALUES (3, 'Makan', 600000, 2, 1718300002, 7, 2025)")
+        db.execSQL("INSERT INTO budgets (id, name, amount, user_id, created_at, month, year) VALUES (4, 'Jajan', 200000, 2, 1718300003, 7, 2025)")
+        db.execSQL("INSERT INTO budgets (id, name, amount, user_id, created_at, month, year) VALUES (5, 'Hiburan', 400000, 3, 1718300004, 7, 2025)")
 
         // ==== Insert Expense Dummy ====
         db.execSQL("INSERT INTO expenses (id, description, amount, date, budget_id, user_id) VALUES (1, 'Nasi Goreng enak pedis pedas uyeaahhhhhhhhhhhhhhhhhhhh', 25000, 1749988800000, 1, 1)")

@@ -21,8 +21,13 @@ data class BudgetEntity(
     var userId: Int,
 
     @ColumnInfo(name = "created_at")
-    var createdAt: Long = System.currentTimeMillis() / 1000
-) {
+    var createdAt: Long = System.currentTimeMillis() / 1000,
+
+    var month: Int,
+
+    var year: Int,
+
+    ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }

@@ -1,9 +1,8 @@
 package com.hiksrot.hiksrotzexpensetracker.model.daos
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.hiksrot.hiksrotzexpensetracker.model.entities.BudgetEntity
-import kotlinx.coroutines.flow.Flow
+import com.hiksrot.hiksrotzexpensetracker.model.dto.BudgetReport
 
 @Dao
 interface BudgetDao {
@@ -22,4 +21,20 @@ interface BudgetDao {
 
         @Delete
         fun deleteBudget(budget: BudgetEntity)
+
+        @Query("""
+            SELECT b.id, b.name, b.amount AS totalBudget,
+                COUNT(e.id) AS transactionCount,
+                IFNULL(SUM(e.amount), 0) AS totalSpent
+            FROM budgets b
+            LEFT JOIN expenses e ON b.id = e.budget_id
+                AND b.month = :month
+                AND b.year = :year
+            WHERE b.user_id = :userId
+              AND b.month = :month
+              AND b.year = :year
+            GROUP BY b.id
+        """)
+        fun getBudgetReportForMonth(userId: Int, month: Int, year: Int): List<BudgetReport>
+
 }

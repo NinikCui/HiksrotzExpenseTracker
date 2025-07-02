@@ -18,7 +18,6 @@ class ReportViewModel(application: Application): AndroidViewModel(application),
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
 
-
     private val _budgetItems = MutableLiveData<List<BudgetItem>>()
     val budgetItems: LiveData<List<BudgetItem>> get() = _budgetItems
 
@@ -43,9 +42,6 @@ class ReportViewModel(application: Application): AndroidViewModel(application),
             _budgetItems.postValue(combined)
         }
     }
-
-
-
 
     override fun onCleared() {
         super.onCleared()

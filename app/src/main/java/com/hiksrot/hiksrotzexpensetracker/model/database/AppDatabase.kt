@@ -28,7 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
                 AppDatabase::class.java,
                 "expense_db"
             )
-                .addCallback(AppDatabaseCallback())
+                 .addCallback(AppDatabaseCallback())
                 .build()
 
         operator fun invoke(context: Context) {
