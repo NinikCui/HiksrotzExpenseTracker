@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 1) SHAPE: Bulat 16dp -->
+    <style name="Shape.Rounded16" parent="ShapeAppearance.Material3.Corner.Small">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <!-- 2) TEXT APPEARANCE: Judul Register -->
+    <style name="TextAppearance.ET.RegisterTitle"
+        parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/textDark</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <!-- 3) TEXT INPUT LAYOUT (OutlinedBox) -->
+    <style name="Widget.ET.TextInput.Outlined"
+        parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxStrokeColor">@color/primaryBlue</item>
+        <item name="hintTextColor">@color/textLightGray</item>
+        <item name="shapeAppearance">@style/Shape.Rounded16</item>
+        <!-- adjust vertical hint padding if needed -->
+        <item name="boxCollapsedPaddingTop">16dp</item>
+    </style>
+
+    <!-- 4) TEXT INPUT EDITTEXT (Dense) -->
+    <style name="Widget.ET.TextInput.EditText"
+        parent="Widget.Material3.TextInputEditText.FilledBox.Dense">
+        <item name="android:textColor">@color/textDark</item>
+        <item name="android:textColorHint">@color/textLightGray</item>
+        <item name="android:minHeight">56dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <!-- 5) BUTTON: Filled (Login) -->
+    <style name="Widget.ET.Button.Filled"
+        parent="Widget.Material3.Button.ElevatedButton">
+        <item name="android:backgroundTint">@color/primaryBlue</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="shapeAppearance">@style/Shape.Rounded16</item>
+    </style>
+
+    <!-- 6) BUTTON: Outlined (SignUp / Back) -->
+    <style name="Widget.ET.Button.Outlined"
+        parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:strokeColor">@color/primaryBlue</item>
+        <item name="android:textColor">@color/primaryBlue</item>
+        <item name="shapeAppearance">@style/Shape.Rounded16</item>
+    </style>
+
+    <!-- 7) CARD: Soft shadow + stroke -->
+    <style name="Widget.ET.Card.Soft" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="strokeColor">@color/softGray</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+</resources>

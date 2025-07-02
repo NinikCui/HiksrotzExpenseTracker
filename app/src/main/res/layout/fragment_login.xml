@@ -96,7 +96,7 @@
 
         <Button
             android:id="@+id/btnSignUp"
-            style="@style/Widget.ET.Button.SignUp"
+            style="@style/Widget.ET.Button.Outlined"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -106,7 +106,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            style="@style/Widget.ET.Button.Login"
+            style="@style/Widget.ET.Button.Filled"
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
