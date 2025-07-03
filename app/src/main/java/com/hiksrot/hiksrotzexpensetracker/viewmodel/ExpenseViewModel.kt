@@ -21,4 +21,9 @@ class ExpenseViewModel(application: Application) : AndroidViewModel(application)
             expensesLD.postValue(list)
         }
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        job.cancel()
+    }
 }
