@@ -21,6 +21,8 @@ interface ExpenseDao {
            e.description,
            e.amount,
            e.date,
+           e.latitude,
+           e.longitude,
            b.name AS budgetName
     FROM expenses e
     JOIN budgets b

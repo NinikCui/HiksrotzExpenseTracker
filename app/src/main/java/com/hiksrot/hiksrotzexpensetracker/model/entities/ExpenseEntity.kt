@@ -33,6 +33,10 @@ data class ExpenseEntity(
 
     @ColumnInfo(name = "user_id")
     val userId: Int,
+
+    val latitude: Double? = null,
+
+    val longitude: Double? = null
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

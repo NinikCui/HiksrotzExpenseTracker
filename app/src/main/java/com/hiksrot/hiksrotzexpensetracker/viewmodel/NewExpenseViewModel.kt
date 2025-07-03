@@ -64,7 +64,10 @@ class NewExpenseViewModel(application: Application)
         return (((spent + input) / total) * 100).toInt().coerceIn(0, 100)
     }
 
-    fun saveExpense(onSuccess: () -> Unit, onError: (String) -> Unit) {
+    fun saveExpense(latitude: Double? = null,
+                    longitude: Double? = null,
+                    onSuccess: () -> Unit,
+                    onError: (String) -> Unit) {
         val amt = nominal.value?.toDoubleOrNull()
         val bud = selectedBudget.value
 
@@ -86,7 +89,9 @@ class NewExpenseViewModel(application: Application)
             amount = amt,
             date = System.currentTimeMillis(),
             budgetId = bud.id,
-            userId = bud.userId
+            userId = bud.userId,
+            latitude = latitude,
+            longitude = longitude
         )
         launch {
             buildDb(getApplication()).expenseDao().insertExpense(exp)

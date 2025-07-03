@@ -1,11 +1,16 @@
 package com.hiksrot.hiksrotzexpensetracker.view.expenseTracker
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.hiksrot.hiksrotzexpensetracker.databinding.FragmentNewExpenseBinding
 import com.hiksrot.hiksrotzexpensetracker.model.entities.BudgetEntity
 import com.hiksrot.hiksrotzexpensetracker.util.SessionManager
@@ -20,6 +25,10 @@ class NewExpenseFragment : Fragment(), NewExpenseListener {
     private lateinit var vm: NewExpenseViewModel
     private var budgetList: List<BudgetEntity> = emptyList()
 
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var pickedLatitude: Double? = null
+    private var pickedLongitude: Double? = null
+
     override fun onCreateView(
         inflater: android.view.LayoutInflater,
         container: android.view.ViewGroup?,
@@ -33,6 +42,7 @@ class NewExpenseFragment : Fragment(), NewExpenseListener {
         super.onViewCreated(view, savedInstanceState)
 
         vm = ViewModelProvider(this).get(NewExpenseViewModel::class.java)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
         binding.vm = vm
         binding.listener = this
@@ -67,6 +77,42 @@ class NewExpenseFragment : Fragment(), NewExpenseListener {
                     Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
                 }
             )
+        }
+        binding.buttonPickLocation.setOnClickListener {
+            if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), 1001
+                )
+                return@setOnClickListener
+            }
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    pickedLatitude = location.latitude
+                    pickedLongitude = location.longitude
+                    binding.textLocation.text = "Lokasi: $pickedLatitude, $pickedLongitude"
+                } else {
+                    // Fallback: requestLocationUpdates
+                    val locationRequest = com.google.android.gms.location.LocationRequest.create()
+                        .setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY)
+                        .setNumUpdates(1)
+                        .setInterval(1000)
+                    fusedLocationClient.requestLocationUpdates(locationRequest, object : com.google.android.gms.location.LocationCallback() {
+                        override fun onLocationResult(result: com.google.android.gms.location.LocationResult) {
+                            val newLoc = result.lastLocation
+                            if (newLoc != null) {
+                                pickedLatitude = newLoc.latitude
+                                pickedLongitude = newLoc.longitude
+                                binding.textLocation.text = "Lokasi: $pickedLatitude, $pickedLongitude"
+                            } else {
+                                binding.textLocation.text = "Lokasi tetap tidak ditemukan"
+                            }
+                            fusedLocationClient.removeLocationUpdates(this)
+                        }
+                    }, android.os.Looper.getMainLooper())
+                }
+            }
         }
     }
 
@@ -123,6 +169,8 @@ class NewExpenseFragment : Fragment(), NewExpenseListener {
 
     override fun onAddExpenseClick(v: View){
         vm.saveExpense(
+            latitude = pickedLatitude,
+            longitude = pickedLongitude,
             onSuccess = {
                 Toast.makeText(requireContext(), "Berhasil", Toast.LENGTH_SHORT).show()
                 requireActivity().onBackPressed()

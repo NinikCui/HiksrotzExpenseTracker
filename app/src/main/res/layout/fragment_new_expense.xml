@@ -49,6 +49,19 @@
                 android:textColor="#333333"
                 android:layout_marginBottom="16dp" />
 
+            <Button
+                android:id="@+id/buttonPickLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ambil Lokasi"
+                android:layout_marginBottom="8dp"/>
+            <TextView
+                android:id="@+id/textLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lokasi belum diambil"
+                android:layout_marginBottom="16dp"/>
+
             <!-- Spinner -->
             <Spinner
                 android:id="@+id/spinnerCategory"

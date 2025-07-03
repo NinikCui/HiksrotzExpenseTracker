@@ -66,6 +66,9 @@ class ExpenseTrackerFragment : Fragment(), ExpenseListListener {
 
         val dialogBinding = DialogExpenseDetailBinding.inflate(layoutInflater)
 
+        dialogBinding.textLatitude.text = "Latitude: ${exp.latitude ?: "-"}"
+        dialogBinding.textLongitude.text = "Longitude: ${exp.longitude ?: "-"}"
+
         dialogBinding.exp = exp
 
         val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())

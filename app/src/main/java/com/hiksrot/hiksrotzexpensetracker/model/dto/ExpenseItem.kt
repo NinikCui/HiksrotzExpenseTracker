@@ -5,5 +5,7 @@ data class ExpenseItem(
     val description: String,
     val amount: Double,
     val date: Long,
-    val budgetName: String
+    val budgetName: String,
+    val latitude: Double?,
+    val longitude: Double?,
 )
