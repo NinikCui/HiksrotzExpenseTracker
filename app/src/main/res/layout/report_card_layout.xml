@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
+    android:layout_marginBottom="12dp"
     app:cardElevation="4dp"
     app:cardCornerRadius="16dp"
     android:background="@android:color/white">
@@ -14,58 +14,63 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Header: Category and Budget -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/textCategory"
                 android:layout_width="0dp"
-                android:layout_weight="0.5"
                 android:layout_height="wrap_content"
-                android:text="Healing"
+                android:layout_weight="0.5"
+                android:text="Category"
                 android:textColor="#333333"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textBudgetTotal"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="end"
-                android:layout_height="wrap_content"
-                android:text="IDR 1.000.000"
-                android:textColor="#333333"
+                android:text="IDR 100.000"
+                android:textColor="#666666"
                 android:textSize="14sp" />
         </LinearLayout>
 
+        <!-- Spent -->
         <TextView
             android:id="@+id/textSpent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="IDR 300.000"
+            android:text="IDR 90.000"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="#333333"
             android:layout_marginTop="8dp" />
 
+        <!-- Progress -->
         <ProgressBar
             android:id="@+id/progressBudget"
             android:layout_width="match_parent"
             android:layout_height="6dp"
             style="@android:style/Widget.ProgressBar.Horizontal"
-            android:progress="30"
             android:max="100"
+            android:progress="60"
             android:progressDrawable="@drawable/progress_custom"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="6dp" />
 
+        <!-- Budget left -->
         <TextView
             android:id="@+id/textBudgetLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Budget left: IDR 700.000"
+            android:text="Budget left: IDR 10.000"
             android:textSize="14sp"
             android:textColor="#888888"
             android:layout_marginTop="4dp" />

@@ -1,6 +1,7 @@
 package com.hiksrot.hiksrotzexpensetracker.model.daos
 
 import androidx.room.*
+import com.hiksrot.hiksrotzexpensetracker.model.entities.BudgetEntity
 import com.hiksrot.hiksrotzexpensetracker.model.entities.UserEntity
 
 @Dao
@@ -34,4 +35,31 @@ interface UserDao {
     @Query("SELECT COUNT(*) FROM user WHERE username = :username")
     fun isUsernameTaken(username: String): Boolean
 
+
+    @Query("""
+    SELECT * FROM budgets 
+    WHERE user_id = :userId AND month = :month AND year = :year
+""")
+    fun getBBudgetMonthYear(
+        userId: Int,
+        month: Int,
+        year: Int
+    ): List<BudgetEntity>
+
+
+    @Query("""
+    SELECT distinct month FROM budgets 
+    WHERE user_id = :userId 
+""")
+    fun getMonthUser(
+        userId: Int
+    ): List<Int>
+
+    @Query("""
+    SELECT distinct year FROM budgets 
+    WHERE user_id = :userId 
+""")
+    fun getYearUser(
+        userId: Int
+    ): List<Int>
 }

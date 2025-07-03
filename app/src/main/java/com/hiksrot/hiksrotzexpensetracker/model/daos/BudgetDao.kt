@@ -40,4 +40,7 @@ interface BudgetDao {
         @Query("SELECT * FROM budgets WHERE user_id = :userId AND month = :month AND year = :year")
         fun getBudgetsByUserAndMonth(userId: Int, month: Int, year: Int): List<BudgetEntity>
 
+
+
+
 }
