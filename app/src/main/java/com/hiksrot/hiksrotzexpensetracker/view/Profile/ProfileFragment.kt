@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.hiksrot.hiksrotzexpensetracker.R
 import com.hiksrot.hiksrotzexpensetracker.databinding.FragmentProfileBinding
+import com.hiksrot.hiksrotzexpensetracker.view.Budgeting.BudgetFragmentDirections
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.ProfileViewModel
 
 class ProfileFragment : Fragment() {
@@ -43,8 +44,8 @@ class ProfileFragment : Fragment() {
     private fun setupButtonListener() {
         // Handle button click untuk edit profile
         binding.buttonEditProfile.setOnClickListener {
-            // Navigate ke edit profile fragment
-            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
+            val action = ProfileFragmentDirections.actionEditProfile()
+            findNavController().navigate(action)
         }
     }
 }

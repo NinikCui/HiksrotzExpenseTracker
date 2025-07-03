@@ -14,15 +14,22 @@ import com.hiksrot.hiksrotzexpensetracker.model.daos.UserDao
 import com.hiksrot.hiksrotzexpensetracker.util.buildDb
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
-class ProfileViewModel(application: Application) : AndroidViewModel(application) {
+class ProfileViewModel (application: Application) : AndroidViewModel(application), CoroutineScope {
+    private val job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = job + Dispatchers.IO
+
+
 
     private val userDao: UserDao = buildDb(application).userDao()
-    private val sharedPreferences = application.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+    private val sharedPreferences = application.getSharedPreferences("user_session", Context.MODE_PRIVATE)
 
-    private val _userLD = MutableLiveData<UserEntity>()
-    val userLD: LiveData<UserEntity> = _userLD
+    private val _userLD = MutableLiveData<UserEntity?>()
+    val userLD: MutableLiveData<UserEntity?> = _userLD
 
     private val _changePasswordResult = MutableLiveData<String>()
     val changePasswordResult: LiveData<String> = _changePasswordResult
@@ -103,21 +110,8 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
 //    ERROR
     fun signOut() {
         sharedPreferences.edit().clear().apply()
-        _userLD.value = null
+        _userLD.value =null
         _signOutResult.value = true
     }
 
-    fun togglePasswordVisibility(editText: EditText, toggleIcon: ImageView) {
-        val isPasswordVisible = editText.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-
-        if (isPasswordVisible) {
-            editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            toggleIcon.setImageResource(android.R.drawable.ic_menu_view)
-        } else {
-            editText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            toggleIcon.setImageResource(android.R.drawable.ic_menu_close_clear_cancel)
-        }
-
-        editText.setSelection(editText.text.length)
-    }
 }
