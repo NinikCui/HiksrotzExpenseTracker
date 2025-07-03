@@ -55,18 +55,23 @@ class ExpenseChartFragment : Fragment() {
     private var currentMonth: Int = 1
     private var currentYear: Int = 2025
 
+    private val monthNames = listOf(
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    )
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 1) Setup Adapter & RecyclerView
+        // Setup Adapter & RecyclerView
         adapter = BudgetReportAdapter(mutableListOf(), chartColors)
         binding.rvCategories.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCategories.adapter = adapter
 
-        // 2) Setup ViewModel
+        // Setup ViewModel
         viewModel = ViewModelProvider(this).get(ExpenseChartViewModel::class.java)
 
-        // 3) Observe LiveData untuk update RecyclerView dan PieChart
+        // Observe LiveData untuk update RecyclerView dan PieChart
         viewModel.budgetReports.observe(viewLifecycleOwner) { data ->
             Log.d("DEBUG_ADAPTER", "Item count: ${data.size}")
             adapter.updateList(data)
@@ -74,7 +79,7 @@ class ExpenseChartFragment : Fragment() {
             binding.tvBudgets.visibility = if (data.isEmpty()) View.GONE else View.VISIBLE
         }
 
-        // 4) Ambil userId, month, year
+        // Ambil userId, month, year (default: hari ini)
         val userId = SessionManager.getUserId(requireContext())
         val calendar = java.util.Calendar.getInstance()
         currentMonth = calendar.get(java.util.Calendar.MONTH) + 1
@@ -86,12 +91,8 @@ class ExpenseChartFragment : Fragment() {
         if (userId != -1) {
             viewModel.fetchBudgets(userId, currentMonth, currentYear)
         }
-        binding.btnPrev.setOnClickListener {
-            moveToPreviousMonth()
-        }
-        binding.btnNext.setOnClickListener {
-            moveToNextMonth()
-        }
+        binding.btnPrev.setOnClickListener { moveToPreviousMonth() }
+        binding.btnNext.setOnClickListener { moveToNextMonth() }
 
         binding.btnViewAllExpense.setOnClickListener {
             val action = ExpenseChartFragmentDirections.actionToListExpense()
@@ -122,11 +123,8 @@ class ExpenseChartFragment : Fragment() {
     }
 
     private fun updateMonthYearUI() {
-        val monthNames = listOf(
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        )
-        binding.tvMonth.text = "${monthNames[currentMonth - 1]}"
+        binding.tvMonth.text = monthNames[currentMonth - 1]
+        binding.tvYear.text = "$currentYear"
     }
 
     private fun fetchBudgetForCurrentMonth() {
@@ -135,24 +133,30 @@ class ExpenseChartFragment : Fragment() {
             viewModel.fetchBudgets(userId, currentMonth, currentYear)
         }
     }
+
     private fun setupPieChartData(data: List<BudgetReport>) {
         val pieChart = binding.pieChart
         val tvAmount = binding.tvAmount
+        val tvNoData = binding.tvNoData
+
+        val monthText = monthNames[currentMonth - 1]
 
         if (data.isEmpty()) {
             pieChart.clear()
             tvAmount.text = "IDR 0"
+            tvNoData.text = "No data in $monthText $currentYear"
+            tvNoData.visibility = View.VISIBLE
             return
+        } else {
+            tvNoData.visibility = View.GONE
         }
 
         val entries = data.map { PieEntry(it.totalSpent.toFloat(), it.name) }
-
         val dataSet = PieDataSet(entries, "").apply {
             setColors(chartColors)
             valueTextColor = Color.WHITE
             valueTextSize = 14f
             sliceSpace = 2f
-
             yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
             xValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
         }
@@ -160,7 +164,6 @@ class ExpenseChartFragment : Fragment() {
         val pieData = PieData(dataSet).apply {
             setValueFormatter(PercentFormatter(pieChart))
         }
-
 
         val totalSpent = data.sumOf { it.totalSpent }
         tvAmount.text = formatRupiah(totalSpent)
@@ -177,7 +180,7 @@ class ExpenseChartFragment : Fragment() {
             centerText = "Your spent\n${helper.formatRupiah(totalSpent)}"
             setCenterTextSize(16f)
             setCenterTextTypeface(Typeface.DEFAULT_BOLD)
-            animateY(800, Easing.EaseInOutQuad)
+            animateY(800, com.github.mikephil.charting.animation.Easing.EaseInOutQuad)
             invalidate()
         }
     }
