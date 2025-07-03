@@ -22,21 +22,44 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <!-- Card: Healing -->
+        <!-- Filter: Month & Year -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp"
+            android:weightSum="2">
 
-        <!-- Ulangi card di atas untuk "Makan Minum" dan "Transport" dengan data yang berbeda -->
+            <Spinner
+                android:id="@+id/spinnerMonth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="#CCCCCC"/>
 
-        <!-- Summary -->
+            <Spinner
+                android:id="@+id/spinnerYear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="#CCCCCC"/>
+        </LinearLayout>
+
+        <!-- RecyclerView List -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recGambar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"/>
 
+        <!-- Summary -->
         <TextView
             android:id="@+id/txtInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:text="Total Expenses / Budget"
             android:textColor="#666666"
             android:textSize="14sp" />

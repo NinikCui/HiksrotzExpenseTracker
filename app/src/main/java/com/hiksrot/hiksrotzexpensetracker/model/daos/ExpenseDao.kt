@@ -41,4 +41,8 @@ interface ExpenseDao {
 
     @Delete
     fun deleteExpense(expense: ExpenseEntity)
+
+
+    @Query("SELECT * FROM expenses WHERE budget_id = :budgetId")
+    fun getExpensesByBudgetId(budgetId: Int): List<ExpenseEntity>
 }

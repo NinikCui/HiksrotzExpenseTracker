@@ -19,13 +19,13 @@
 
     <!-- Pink & Variants -->
     <color name="pinkSoft">#FF8FCF</color>    <!-- warna sektor donut -->
-    <color name="pinkStrong">#FD3D7D</color>  <!-- indikator naik 8.65% -->
+    <color name="pinkStrong">#FD3D7D</color>  <!-- indikator naik -->
 
     <!-- Green -->
-    <color name="greenPositive">#4CD964</color> <!-- indikator positif 6.12% -->
+    <color name="greenPositive">#4CD964</color> <!-- indikator positif -->
 
     <!-- Red -->
-    <color name="redNegative">#FF3B30</color>  <!-- indikator negatif 3.42% -->
+    <color name="redNegative">#FF3B30</color>  <!-- indikator negatif -->
 
     <!-- Text & Secondary -->
     <color name="textDark">#333333</color>

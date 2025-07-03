@@ -30,5 +30,34 @@ class MainActivity : AppCompatActivity() {
             val navController = navHostFragment.navController
 
             binding.bottomNav.setupWithNavController(navController)
+            binding.bottomNav.setOnItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.itemExpense -> {
+                        // Reset ke itemExpense jika bukan di sana
+                        if (navController.currentDestination?.id != R.id.itemExpense) {
+                            navController.popBackStack(R.id.itemExpense, false)
+                            navController.navigate(R.id.itemExpense)
+                        }
+                        true
+                    }
+
+                    R.id.itemReport -> {
+                        navController.navigate(R.id.itemReport)
+                        true
+                    }
+
+                    R.id.itemProfile -> {
+                        navController.navigate(R.id.itemProfile)
+                        true
+                    }
+
+                    R.id.itemBudget -> {
+                        navController.navigate(R.id.itemBudget)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
     }
 }

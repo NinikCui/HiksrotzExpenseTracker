@@ -10,6 +10,7 @@ import com.hiksrot.hiksrotzexpensetracker.R
 import android.graphics.Color
 import android.graphics.Typeface
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -43,14 +44,17 @@ class ExpenseChartFragment : Fragment() {
         return binding.root
     }
 
-    private val chartColors = listOf(
-        Color.parseColor("#A694FE"),
-        Color.parseColor("#FF89A4"),
-        Color.parseColor("#6B47FF"),
-        Color.parseColor("#34D374"),
-        Color.parseColor("#FFD600"),
-        Color.parseColor("#18B0FF")
-    )
+    private val chartColors by lazy {
+        listOf(
+            ContextCompat.getColor(requireContext(), R.color.primaryBlue),
+            ContextCompat.getColor(requireContext(), R.color.pinkSoft),
+            ContextCompat.getColor(requireContext(), R.color.purpleLight),
+            ContextCompat.getColor(requireContext(), R.color.purpleDark),
+            ContextCompat.getColor(requireContext(), R.color.greenPositive),
+            ContextCompat.getColor(requireContext(), R.color.redNegative),
+            ContextCompat.getColor(requireContext(), R.color.lightBlue)
+        )
+    }
 
     private var currentMonth: Int = 1
     private var currentYear: Int = 2025
