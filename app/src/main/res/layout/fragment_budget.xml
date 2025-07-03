@@ -19,78 +19,16 @@
         android:textStyle="bold" />
 
     <!-- Budget Items -->
-    <LinearLayout
-        android:id="@+id/budgetList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/titleBudget"
-        android:layout_marginTop="24dp"
-        android:orientation="vertical">
-
-        <!-- Healing -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Healing"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="IDR 2.000.000"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!-- Makan Minum -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Makan Minum"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="IDR 3.500.000"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!-- Transport -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Transport"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="IDR 2.500.000"
-                android:textSize="16sp" />
-        </LinearLayout>
-    </LinearLayout>
 
     <!-- Floating Action Button -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recBudget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleBudget"
+        android:layout_marginTop="18dp" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddBudget"
         android:layout_width="wrap_content"

@@ -7,6 +7,9 @@ import com.hiksrot.hiksrotzexpensetracker.model.entities.ExpenseEntity
 @Dao
 interface ExpenseDao {
 
+    @Query("SELECT IFNULL(SUM(amount), 0) FROM expenses WHERE budget_id = :budgetId")
+    fun getTotalExpensesByBudgetId(budgetId: Int): Double
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertExpense(expense: ExpenseEntity)
 
