@@ -1,131 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F9F1FC"
-    android:orientation="vertical"
-    android:padding="24dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Title -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#333333"
-        android:layout_marginBottom="24dp" />
+    <data>
+        <variable
+            name="user"
+            type="com.hiksrot.hiksrotzexpensetracker.model.entities.UserEntity" />
+    </data>
 
-    <!-- Old Password -->
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:orientation="horizontal"
-        android:background="@drawable/edittext_background"
-        android:padding="8dp">
-
-        <EditText
-            android:id="@+id/editOldPassword"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:hint="Old Password"
-            android:inputType="textPassword"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:id="@+id/toggleOldPassword"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_visibility_on"
-            android:padding="4dp" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <!-- New Password -->
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:orientation="horizontal"
-        android:background="@drawable/edittext_background"
-        android:padding="8dp">
-
-        <EditText
-            android:id="@+id/editNewPassword"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:hint="New Password"
-            android:inputType="textPassword"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:id="@+id/toggleNewPassword"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_visibility_on"
-            android:padding="4dp" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <!-- Repeat Password -->
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:orientation="horizontal"
-        android:background="@drawable/edittext_background"
-        android:padding="8dp">
-
-        <EditText
-            android:id="@+id/editRepeatPassword"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:hint="Repeat Password"
-            android:inputType="textPassword"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:id="@+id/toggleRepeatPassword"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_visibility_on"
-            android:padding="4dp" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <!-- Bottom Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end|center_vertical"
-        android:layout_marginTop="8dp">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
+        <!-- Optional: Avatar -->
+        <ImageView
+            android:id="@+id/imageProfile"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/profile_circle_background"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile_placeholder" />
+
+        <!-- Username -->
         <TextView
-            android:id="@+id/textSignOut"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:id="@+id/textUsername"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SIGN OUT"
-            android:textSize="14sp"
-            android:textColor="#7B1FA2"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:text="@{user.username}"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
+        <!-- First Name -->
+        <TextView
+            android:id="@+id/textFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:text="@{user.firstName}"
+            android:textSize="16sp" />
+
+        <!-- Last Name -->
+        <TextView
+            android:id="@+id/textLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:text="@{user.lastName}"
+            android:textSize="16sp" />
+
+        <!-- Optional: Button Edit Profile -->
         <Button
-            android:id="@+id/buttonChangePassword"
+            android:id="@+id/buttonEditProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CHANGE PASSWORD"
-            android:textColor="#FFFFFF"
             android:backgroundTint="#7B1FA2"
             android:elevation="4dp"
-            android:textAllCaps="true"
             android:paddingStart="24dp"
-            android:paddingEnd="24dp" />
+            android:paddingEnd="24dp"
+            android:text="EDIT PROFILE"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
-</LinearLayout>
+
+</layout>
