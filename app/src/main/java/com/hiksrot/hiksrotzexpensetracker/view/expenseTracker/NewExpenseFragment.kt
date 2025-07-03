@@ -41,9 +41,18 @@ class NewExpenseFragment : Fragment(), NewExpenseListener {
         val sdf = SimpleDateFormat("dd MMM yyyy", Locale("id"))
         binding.textDate.text = sdf.format(Date())
 
+        val cal = Calendar.getInstance()
+        val monthNames = listOf(
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        )
+        val nowMonth = monthNames[cal.get(Calendar.MONTH)]
+        val nowYear = cal.get(Calendar.YEAR)
+        binding.textTitle.text = "Add your expense on $nowMonth $nowYear"
+
         val userId = SessionManager.getUserId(requireContext())
         if (userId != -1) {
-            vm.loadBudgets(userId)
+            vm.loadBudgetsForCurrentMonth(userId)
         }
 
         observeViewModel()

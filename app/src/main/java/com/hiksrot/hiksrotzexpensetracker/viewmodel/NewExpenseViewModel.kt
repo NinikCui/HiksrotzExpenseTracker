@@ -7,6 +7,7 @@ import com.hiksrot.hiksrotzexpensetracker.model.entities.BudgetEntity
 import com.hiksrot.hiksrotzexpensetracker.model.entities.ExpenseEntity
 import com.hiksrot.hiksrotzexpensetracker.util.buildDb
 import kotlinx.coroutines.*
+import java.util.Calendar
 import kotlin.coroutines.CoroutineContext
 
 class NewExpenseViewModel(application: Application)
@@ -22,17 +23,28 @@ class NewExpenseViewModel(application: Application)
     val nominal = MutableLiveData<String>()
     val note = MutableLiveData<String>()
 
-    fun loadBudgets(userId: Int) {
-        launch {
-            val list = buildDb(getApplication()).budgetDao().getBudgetsByUser(userId)
-            budgets.postValue(list)
-        }
-    }
+//    fun loadBudgets(userId: Int) {
+//        launch {
+//            val list = buildDb(getApplication()).budgetDao().getBudgetsByUser(userId)
+//            budgets.postValue(list)
+//        }
+//    }
 
     fun loadBudgetUsage(budgetId: Int) {
         launch {
             val list = buildDb(getApplication()).expenseDao().getExpensesByBudget(budgetId)
             budgetUsed.postValue(list.sumOf { it.amount })
+        }
+    }
+
+    fun loadBudgetsForCurrentMonth(userId: Int) {
+        launch {
+            val calendar = Calendar.getInstance()
+            val thisMonth = calendar.get(Calendar.MONTH) + 1
+            val thisYear = calendar.get(Calendar.YEAR)
+            val list = buildDb(getApplication()).budgetDao()
+                .getBudgetsByUserAndMonth(userId, thisMonth, thisYear)
+            budgets.postValue(list)
         }
     }
 
