@@ -44,4 +44,8 @@ interface ExpenseDao {
 
     @Query("SELECT * FROM expenses WHERE budget_id = :budgetId")
     fun getExpensesByBudgetId(budgetId: Int): List<ExpenseEntity>
+
+
+    @Query("SELECT IFNULL(SUM(amount), 0) FROM expenses WHERE budget_id = :budgetId")
+    fun getTotalExpenseForBudget(budgetId: Int): Double
 }

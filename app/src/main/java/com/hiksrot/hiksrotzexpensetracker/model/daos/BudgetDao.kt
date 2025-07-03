@@ -41,4 +41,21 @@ interface BudgetDao {
         fun getBudgetsByUserAndMonth(userId: Int, month: Int, year: Int): List<BudgetEntity>
 
 
+        @Query("""
+            SELECT COUNT(*) FROM budgets
+            WHERE user_id = :userId AND month = :month AND year = :year
+              AND name = :name COLLATE NOCASE
+              AND id != :budgetId
+        """)
+        fun isBudgetNameDuplicate(budgetId: Int, userId: Int, month: Int, year: Int, name: String): Int
+
+        @Query("""
+            SELECT COUNT(*) FROM budgets 
+            WHERE user_id = :userId 
+              AND month = :month 
+              AND year = :year 
+              AND name = :name COLLATE NOCASE
+        """)
+        fun isNewBudgetNameExists(userId: Int, month: Int, year: Int, name: String): Int
+
 }

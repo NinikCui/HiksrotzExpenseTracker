@@ -51,12 +51,24 @@ class BudgetFragment : Fragment() {
 
         // Observe LiveData
         viewModel.budgetItems.observe(viewLifecycleOwner) { budgets ->
-            recyclerView.adapter = BudgetItemAdapter(budgets)
+            val adapter = BudgetItemAdapter(budgets) { budget ->
+                val action = BudgetFragmentDirections.actionNewBudget(
+                    judul = "Edit Budget",
+                    budgetId = budget.id,
+                    namaBudget = budget.name,
+                    nominalBudget = budget.amount.toFloat()
+                )
+                findNavController().navigate(action)
+            }
+
+            binding.recyclerBudget.adapter = adapter
         }
+
 
         // Tambahkan klik FAB jika diperlukan
         binding.fabAddBudget.setOnClickListener {
-            findNavController().navigate(R.id.actionNewBudget)
+            val action = BudgetFragmentDirections.actionNewBudget(judul = "New Budget")
+            findNavController().navigate(action)
         }
     }
 

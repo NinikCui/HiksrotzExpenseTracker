@@ -4,12 +4,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.hiksrot.hiksrotzexpensetracker.R
 import com.hiksrot.hiksrotzexpensetracker.databinding.BudgetListLayoutBinding
 import com.hiksrot.hiksrotzexpensetracker.model.entities.BudgetEntity
-class BudgetItemAdapter(private val budgets: List<BudgetEntity>) :
-    RecyclerView.Adapter<BudgetItemAdapter.ViewHolder>() {
+
+class BudgetItemAdapter(
+    private val budgets: List<BudgetEntity>,
+    private val onEditClick: (BudgetEntity) -> Unit
+) : RecyclerView.Adapter<BudgetItemAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: BudgetListLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -25,7 +30,7 @@ class BudgetItemAdapter(private val budgets: List<BudgetEntity>) :
         holder.binding.txtAmount.text = "IDR %,d".format(item.amount.toInt())
 
         holder.binding.btnEdit.setOnClickListener {
-            // Aksi edit: buka form / tampilkan dialog
+            onEditClick(item)
         }
     }
 
