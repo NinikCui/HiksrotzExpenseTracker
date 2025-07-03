@@ -95,6 +95,7 @@ class ExpenseChartFragment : Fragment() {
         if (userId != -1) {
             viewModel.fetchBudgets(userId, currentMonth, currentYear)
         }
+
         binding.btnPrev.setOnClickListener { moveToPreviousMonth() }
         binding.btnNext.setOnClickListener { moveToNextMonth() }
 
@@ -152,10 +153,11 @@ class ExpenseChartFragment : Fragment() {
             tvNoData.visibility = View.VISIBLE
             return
         } else {
-            tvNoData.visibility = View.GONE
+            tvNoData.visibility =  View.GONE
         }
 
         val entries = data.map { PieEntry(it.totalSpent.toFloat(), it.name) }
+
         val dataSet = PieDataSet(entries, "").apply {
             setColors(chartColors)
             valueTextColor = Color.WHITE

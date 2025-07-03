@@ -16,10 +16,8 @@ class LoginRegisterViewModel(application: Application) : AndroidViewModel(applic
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
 
-
     private val _loginSuccess = MutableLiveData<Boolean>()
     val loginSuccess: LiveData<Boolean> get() = _loginSuccess
-
     private val _loggedInUser = MutableLiveData<UserEntity?>()
     val loggedInUser: LiveData<UserEntity?> get() = _loggedInUser
 
@@ -40,14 +38,12 @@ class LoginRegisterViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-
     fun Register(user: UserEntity) {
         launch {
             val db = buildDb(getApplication())
             db.userDao().register(user)
         }
     }
-
 
     private val _userCheckResult = MutableLiveData<UserEntity?>()
     val userCheckResult: LiveData<UserEntity?> get() = _userCheckResult

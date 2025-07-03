@@ -17,6 +17,7 @@ import com.hiksrot.hiksrotzexpensetracker.util.SessionManager
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.NewExpenseViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.navigation.fragment.findNavController
 
 class NewExpenseFragment : Fragment(), NewExpenseListener {
 
@@ -178,7 +179,7 @@ class NewExpenseFragment : Fragment(), NewExpenseListener {
                     "Expense saved for today ($dateNow)",
                     Toast.LENGTH_SHORT
                 ).show()
-                requireActivity().onBackPressed()
+                findNavController().popBackStack()
             },
             onError = {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
