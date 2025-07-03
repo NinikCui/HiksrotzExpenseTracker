@@ -172,7 +172,12 @@ class NewExpenseFragment : Fragment(), NewExpenseListener {
             latitude = pickedLatitude,
             longitude = pickedLongitude,
             onSuccess = {
-                Toast.makeText(requireContext(), "Berhasil", Toast.LENGTH_SHORT).show()
+                val dateNow = java.text.SimpleDateFormat("dd MMM yyyy", java.util.Locale.getDefault()).format(java.util.Date())
+                Toast.makeText(
+                    requireContext(),
+                    "Expense saved for today ($dateNow)",
+                    Toast.LENGTH_SHORT
+                ).show()
                 requireActivity().onBackPressed()
             },
             onError = {
