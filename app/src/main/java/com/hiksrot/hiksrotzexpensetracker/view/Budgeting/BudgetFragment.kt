@@ -15,7 +15,9 @@ import com.hiksrot.hiksrotzexpensetracker.util.SessionManager
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.BudgetViewModel
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.LoginRegisterViewModel
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.ReportViewModel
+import java.text.NumberFormat
 import java.util.Calendar
+import java.util.Locale
 
 
 class BudgetFragment : Fragment() {
@@ -64,12 +66,12 @@ class BudgetFragment : Fragment() {
             binding.recyclerBudget.adapter = adapter
         }
 
-
         // Tambahkan klik FAB jika diperlukan
         binding.fabAddBudget.setOnClickListener {
             val action = BudgetFragmentDirections.actionNewBudget(judul = "New Budget")
             findNavController().navigate(action)
         }
     }
+
 
 }

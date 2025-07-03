@@ -41,10 +41,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$"
-            android:textSize="16sp"
             android:layout_gravity="center_vertical"
-            android:paddingEnd="8dp" />
+            android:paddingEnd="8dp"
+            android:text="IDR"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/editTxtNominal"

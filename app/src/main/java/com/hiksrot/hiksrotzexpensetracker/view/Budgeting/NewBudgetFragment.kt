@@ -14,7 +14,9 @@ import com.hiksrot.hiksrotzexpensetracker.databinding.FragmentNewBudgetBinding
 import com.hiksrot.hiksrotzexpensetracker.model.entities.BudgetEntity
 import com.hiksrot.hiksrotzexpensetracker.util.SessionManager
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.BudgetViewModel
+import java.text.NumberFormat
 import java.util.Calendar
+import java.util.Locale
 
 class NewBudgetFragment : Fragment() {
     private lateinit var viewModel: BudgetViewModel
@@ -27,6 +29,15 @@ class NewBudgetFragment : Fragment() {
     ): View? {
         binding = FragmentNewBudgetBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    fun formatToRupiah(amount: Double): String {
+        val localeID = Locale("in", "ID")
+        val numberFormat = NumberFormat.getCurrencyInstance(localeID)
+        numberFormat.maximumFractionDigits = 0 // tanpa koma/desimal
+        return numberFormat.format(amount) // hasil: Rp12.334
+            .replace("Rp", "IDR ")
+            .trim()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,13 +58,15 @@ class NewBudgetFragment : Fragment() {
 
         if (judul == "Edit Budget") {
             binding.txtBudget.setText(namaBudget)
-            binding.editTxtNominal.setText(nominalBudget.toString())
+            binding.editTxtNominal.setText(formatToRupiah(nominalBudget.toDouble()))
             binding.buttonAddBudget.setText("Edit")
             viewModel.getTotalExpense(budgetId)
             viewModel.totalExpense.observe(viewLifecycleOwner) {
                 totalUsedExpense = it
             }
         }
+
+
 
         binding.buttonAddBudget.setOnClickListener {
             val nama = binding.txtBudget.text.toString().trim()
@@ -110,5 +123,7 @@ class NewBudgetFragment : Fragment() {
                 requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
+
+
     }
 }
