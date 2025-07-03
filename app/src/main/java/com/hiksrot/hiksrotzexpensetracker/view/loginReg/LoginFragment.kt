@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.hiksrot.hiksrotzexpensetracker.R
 import com.hiksrot.hiksrotzexpensetracker.databinding.FragmentLoginBinding
+import com.hiksrot.hiksrotzexpensetracker.util.SessionManager
 import com.hiksrot.hiksrotzexpensetracker.view.MainActivity
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.LoginRegisterViewModel
 
@@ -50,11 +51,7 @@ class LoginFragment : Fragment() {
                 val user = viewModel.loggedInUser.value
                 if (user != null) {
                     // Simpan user ID ke SharedPreferences
-                    val sharedPref = requireContext().getSharedPreferences("user_session", 0)
-                    val editor = sharedPref.edit()
-                    editor.putInt("user_id", user.id)
-                    editor.putString("username", user.username)
-                    editor.apply()
+                    SessionManager.saveUserSession(requireContext(), user.id, user.username)
 
                     val intent = Intent(requireContext(), MainActivity::class.java)
                     intent.putExtra("username", user.username)

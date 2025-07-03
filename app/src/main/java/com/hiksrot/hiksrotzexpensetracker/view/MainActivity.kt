@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.hiksrot.hiksrotzexpensetracker.R
 import com.hiksrot.hiksrotzexpensetracker.databinding.ActivityMainBinding
+import com.hiksrot.hiksrotzexpensetracker.util.SessionManager
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.LoginRegisterViewModel
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         viewModel = ViewModelProvider(this)[LoginRegisterViewModel::class.java]
 
-        val username = intent.getStringExtra("username")
+        val username = SessionManager.getUsername(this)
         if (!username.isNullOrEmpty()) {
             viewModel.fetchUserByUsername(username)
         }

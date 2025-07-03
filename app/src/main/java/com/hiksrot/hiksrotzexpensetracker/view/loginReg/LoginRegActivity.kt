@@ -12,8 +12,6 @@ class LoginRegActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
         val sharedPref = getSharedPreferences("user_session", MODE_PRIVATE)
         val userId = sharedPref.getInt("user_id", -1)
 
