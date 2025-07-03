@@ -20,7 +20,7 @@
 
     <!-- Budget Name input -->
     <EditText
-        android:id="@+id/editTextBudgetName"
+        android:id="@+id/txtBudget"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginBottom="16dp"
@@ -47,7 +47,7 @@
             android:paddingEnd="8dp" />
 
         <EditText
-            android:id="@+id/editTextNominal"
+            android:id="@+id/editTxtNominal"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
