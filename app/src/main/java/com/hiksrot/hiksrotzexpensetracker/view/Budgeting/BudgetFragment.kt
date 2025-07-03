@@ -62,16 +62,12 @@ class BudgetFragment : Fragment() {
                 )
                 findNavController().navigate(action)
             }
-
             binding.recyclerBudget.adapter = adapter
         }
 
-        // Tambahkan klik FAB jika diperlukan
         binding.fabAddBudget.setOnClickListener {
             val action = BudgetFragmentDirections.actionNewBudget(judul = "New Budget")
             findNavController().navigate(action)
         }
     }
-
-
 }

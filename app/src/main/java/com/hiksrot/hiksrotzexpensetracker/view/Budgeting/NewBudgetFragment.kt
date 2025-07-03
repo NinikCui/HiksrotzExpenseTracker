@@ -34,9 +34,9 @@ class NewBudgetFragment : Fragment() {
     fun formatToRupiah(amount: Double): String {
         val localeID = Locale("in", "ID")
         val numberFormat = NumberFormat.getCurrencyInstance(localeID)
-        numberFormat.maximumFractionDigits = 0 // tanpa koma/desimal
-        return numberFormat.format(amount) // hasil: Rp12.334
-            .replace("Rp", "IDR ")
+        numberFormat.maximumFractionDigits = 0
+        return numberFormat.format(amount)
+            .replace("Rp", "")
             .trim()
     }
 
@@ -65,8 +65,6 @@ class NewBudgetFragment : Fragment() {
                 totalUsedExpense = it
             }
         }
-
-
 
         binding.buttonAddBudget.setOnClickListener {
             val nama = binding.txtBudget.text.toString().trim()
@@ -116,14 +114,11 @@ class NewBudgetFragment : Fragment() {
             }
         }
 
-
         viewModel.isBudgetSaved.observe(viewLifecycleOwner) {
             if (it == true) {
                 Toast.makeText(requireContext(), "Budget berhasil disimpan", Toast.LENGTH_SHORT).show()
                 requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
-
-
     }
 }
