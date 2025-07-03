@@ -48,6 +48,17 @@ class LoginRegisterViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
+
+    private val _userCheckResult = MutableLiveData<UserEntity?>()
+    val userCheckResult: LiveData<UserEntity?> get() = _userCheckResult
+
+    fun checkIfUsernameExists(username: String) {
+        launch {
+            val db = buildDb(getApplication())
+            val user = db.userDao().getUserByUsername(username)
+            _userCheckResult.postValue(user)
+        }
+    }
     fun hashPassword(password: String): String {
         val bytes = MessageDigest.getInstance("SHA-256").digest(password.toByteArray())
         return bytes.joinToString("") { "%02x".format(it) }

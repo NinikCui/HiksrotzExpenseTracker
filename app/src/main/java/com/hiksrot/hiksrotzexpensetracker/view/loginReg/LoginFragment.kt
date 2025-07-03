@@ -53,6 +53,7 @@ class LoginFragment : Fragment() {
                     val sharedPref = requireContext().getSharedPreferences("user_session", 0)
                     val editor = sharedPref.edit()
                     editor.putInt("user_id", user.id)
+                    editor.putString("username", user.username)
                     editor.apply()
 
                     val intent = Intent(requireContext(), MainActivity::class.java)

@@ -31,4 +31,7 @@ interface UserDao {
     @Query("SELECT * FROM user WHERE username = :username LIMIT 1")
     fun getUserByUsername(username: String): UserEntity?
 
+    @Query("SELECT COUNT(*) FROM user WHERE username = :username")
+    fun isUsernameTaken(username: String): Boolean
+
 }

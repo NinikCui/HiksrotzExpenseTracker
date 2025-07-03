@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.hiksrot.hiksrotzexpensetracker.R
 import com.hiksrot.hiksrotzexpensetracker.databinding.FragmentLoginBinding
@@ -15,6 +16,7 @@ import com.hiksrot.hiksrotzexpensetracker.databinding.FragmentRegisterBinding
 import com.hiksrot.hiksrotzexpensetracker.model.database.AppDatabase
 import com.hiksrot.hiksrotzexpensetracker.model.entities.UserEntity
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.LoginRegisterViewModel
+import kotlinx.coroutines.launch
 
 
 class RegisterFragment : Fragment() {
@@ -42,35 +44,42 @@ class RegisterFragment : Fragment() {
         }
 
         binding.btnRegis.setOnClickListener {
-            try {
-                val username = binding.txtUsername.text.toString().trim()
-                val firstName = binding.txtFirstName.text.toString().trim()
-                val lastName = binding.txtLastName.text.toString().trim()
-                val password = binding.txtPassword.text.toString()
-                val repeatPassword = binding.txtRepeatPassword.text.toString()
+            val username = binding.txtUsername.text.toString().trim()
+            val firstName = binding.txtFirstName.text.toString().trim()
+            val lastName = binding.txtLastName.text.toString().trim()
+            val password = binding.txtPassword.text.toString()
+            val repeatPassword = binding.txtRepeatPassword.text.toString()
 
-                if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
-                    Toast.makeText(requireContext(), "All fields are required", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
+            if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
+                Toast.makeText(requireContext(), "All fields are required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-                if (password != repeatPassword) {
-                    Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
+            if (password != repeatPassword) {
+                Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
+            // Cek apakah username sudah ada
+            viewModel.checkIfUsernameExists(username)
+        }
+
+        viewModel.userCheckResult.observe(viewLifecycleOwner) { existingUser ->
+            val username = binding.txtUsername.text.toString().trim()
+            val firstName = binding.txtFirstName.text.toString().trim()
+            val lastName = binding.txtLastName.text.toString().trim()
+            val password = binding.txtPassword.text.toString()
+
+            if (existingUser != null) {
+                Toast.makeText(requireContext(), "Username telah ada", Toast.LENGTH_SHORT).show()
+            } else {
                 val hashedPassword = viewModel.hashPassword(password)
                 val user = UserEntity(username, hashedPassword, firstName, lastName)
                 viewModel.Register(user)
 
                 Toast.makeText(requireContext(), "Account created!", Toast.LENGTH_SHORT).show()
-
                 findNavController().navigate(R.id.actionLoginFragment)
-            } catch (e: Exception) {
-                Log.e("RegisterFragment", "Register error", e)
-                Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
             }
-
         }
 
     }
