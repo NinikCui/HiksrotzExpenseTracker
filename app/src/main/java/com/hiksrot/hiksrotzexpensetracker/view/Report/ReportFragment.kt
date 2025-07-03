@@ -130,7 +130,7 @@ class ReportFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
-        //ini kalau spinner year dipilih
+        //ini kalau spinner tahun dipilihi
         binding.spinnerYear.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
                 selectedYear = parent.getItemAtPosition(pos) as Int
