@@ -62,4 +62,7 @@ interface UserDao {
     fun getYearUser(
         userId: Int
     ): List<Int>
+
+    @Update
+    fun updateUser(user: UserEntity)
 }

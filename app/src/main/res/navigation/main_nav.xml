@@ -20,7 +20,7 @@
         android:label="ReportFragment" />
     <fragment
         android:id="@+id/itemProfile"
-        android:name="com.hiksrot.hiksrotzexpensetracker.view.Profile.ProfileFragment"
+        android:name="com.hiksrot.hiksrotzexpensetracker.view.profile.ProfileFragment"
         android:label="ProfileFragment" >
         <action
             android:id="@+id/actionEditProfile"
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.hiksrot.hiksrotzexpensetracker.view.Profile.EditProfileFragment"
+        android:name="com.hiksrot.hiksrotzexpensetracker.view.profile.EditProfileFragment"
         android:label="EditProfileFragment" >
         <action
             android:id="@+id/actionProfile"

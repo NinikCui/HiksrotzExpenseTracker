@@ -1,4 +1,4 @@
-package com.hiksrot.hiksrotzexpensetracker.view.Profile
+package com.hiksrot.hiksrotzexpensetracker.view.profile
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,13 +10,12 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.hiksrot.hiksrotzexpensetracker.R
 import com.hiksrot.hiksrotzexpensetracker.databinding.FragmentEditProfileBinding
 import com.hiksrot.hiksrotzexpensetracker.view.loginReg.LoginRegActivity
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.ProfileViewModel
 
-class EditProfileFragment : Fragment() {
+class EditProfileFragment : Fragment(),EditPassListener  {
 
     private lateinit var binding: FragmentEditProfileBinding
     private lateinit var viewModel: ProfileViewModel
@@ -26,37 +25,7 @@ class EditProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_profile, container, false)
-        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
 
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-
-        observeUserData()
-        observeResultEvents()
-
-        // Tombol Ganti Password
-        binding.buttonChangePassword.setOnClickListener {
-            val oldPass = binding.editOldPassword.text.toString()
-            val newPass = binding.editNewPassword.text.toString()
-            val repeatPass = binding.editRepeatPassword.text.toString()
-
-            when {
-                oldPass.isBlank() || newPass.isBlank() || repeatPass.isBlank() -> {
-                    Toast.makeText(requireContext(), "Semua kolom harus diisi", Toast.LENGTH_SHORT).show()
-                }
-                newPass != repeatPass -> {
-                    Toast.makeText(requireContext(), "Password baru tidak cocok", Toast.LENGTH_SHORT).show()
-                }
-                else -> {
-                    //viewModel.changePassword(oldPass, newPass)
-                }
-            }
-        }
-
-        // Tombol Logout
-        binding.buttonLogout.setOnClickListener {
-            viewModel.signOut()
-        }
 
         return binding.root
     }
@@ -89,5 +58,46 @@ class EditProfileFragment : Fragment() {
         }
 
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.editPassListener = this
+
+        observeUserData()
+        observeResultEvents()
+
+
+
+
+    }
+    override fun onEditPasswordClicked(v: View) {
+        val oldPass = binding.editOldPassword.text.toString()
+        val newPass = binding.editNewPassword.text.toString()
+        val repeatPass = binding.editRepeatPassword.text.toString()
+
+        when {
+            oldPass.isBlank() || newPass.isBlank() || repeatPass.isBlank() -> {
+                Toast.makeText(requireContext(), "Semua kolom harus diisi", Toast.LENGTH_SHORT).show()
+            }
+            newPass != repeatPass -> {
+                Toast.makeText(requireContext(), "Password baru tidak cocok", Toast.LENGTH_SHORT).show()
+            }
+            else -> {
+                viewModel.oldPassword.value = oldPass
+                viewModel.newPassword.value = newPass
+                viewModel.repeatPassword.value = repeatPass
+                viewModel.changePassword()
+            }
+        }
+    }
+
+    override fun btnLogOutClicked(v: View) {
+        viewModel.signOut()
     }
 }

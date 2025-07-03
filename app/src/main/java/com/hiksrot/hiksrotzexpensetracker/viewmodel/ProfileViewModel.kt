@@ -37,11 +37,9 @@ class ProfileViewModel (application: Application) : AndroidViewModel(application
     private val _signOutResult = MutableLiveData<Boolean>()
     val signOutResult: LiveData<Boolean> = _signOutResult
 
-    init {
-        loadUserData()
-    }
 
-    private fun loadUserData() {
+
+     fun loadUserData() {
         val username = sharedPreferences.getString("username", "") ?: ""
         if (username.isNotEmpty()) {
             CoroutineScope(Dispatchers.IO).launch {
@@ -53,61 +51,50 @@ class ProfileViewModel (application: Application) : AndroidViewModel(application
         }
     }
 
-    fun changePassword(oldPassword: String, newPassword: String, repeatPassword: String) {
-        when {
-            oldPassword.isEmpty() -> {
-                _changePasswordResult.value = "Old password cannot be empty"
-                return
-            }
-            newPassword.isEmpty() -> {
-                _changePasswordResult.value = "New password cannot be empty"
-                return
-            }
-            repeatPassword.isEmpty() -> {
-                _changePasswordResult.value = "Repeat password cannot be empty"
-                return
-            }
-            newPassword != repeatPassword -> {
-                _changePasswordResult.value = "New password and repeat password don't match"
-                return
-            }
-            newPassword.length < 6 -> {
-                _changePasswordResult.value = "New password must be at least 6 characters"
-                return
-            }
+    val oldPassword = MutableLiveData<String>()
+    val newPassword = MutableLiveData<String>()
+    val repeatPassword = MutableLiveData<String>()
+
+    private fun hashPassword(password: String): String {
+        val digest = java.security.MessageDigest.getInstance("SHA-256")
+        val hash = digest.digest(password.toByteArray(Charsets.UTF_8))
+        return hash.joinToString("") { "%02x".format(it) }
+    }
+
+    fun changePassword() {
+        val oldPass = oldPassword.value ?: ""
+        val newPass = newPassword.value ?: ""
+        val repeatPass = repeatPassword.value ?: ""
+
+        if (oldPass.isBlank() || newPass.isBlank() || repeatPass.isBlank()) {
+            _changePasswordResult.postValue("Semua kolom harus diisi")
+            return
         }
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val currentUser = _userLD.value
-            if (currentUser != null) {
-                if (currentUser.password == oldPassword) {
-                    userDao.updateUser(
-                        currentUser.id,
-                        currentUser.username,
-                        newPassword,
-                        currentUser.firstName,
-                        currentUser.lastName
-                    )
+        if (newPass != repeatPass) {
+            _changePasswordResult.postValue("Password baru tidak cocok")
+            return
+        }
 
-                    // Update SharedPreferences
-                    sharedPreferences.edit().apply {
-                        putString("password", newPassword)
-                        apply()
-                    }
-
-                    // Update current user data
-                    currentUser.password = newPassword
-//                    ERROR
-                    _userLD.postValue(currentUser)
+        val username = sharedPreferences.getString("username", "") ?: return
+        launch {
+            val user = userDao.getUserByUsername(username)
+            if (user != null) {
+                val hashedOld = hashPassword(oldPass)
+                if (hashedOld == user.password) {
+                    user.password = hashPassword(newPass)
+                    userDao.updateUser(user)
                     _changePasswordResult.postValue("Password changed successfully")
                 } else {
-                    _changePasswordResult.postValue("Old password is incorrect")
+                    _changePasswordResult.postValue("Password lama salah")
                 }
+            } else {
+                _changePasswordResult.postValue("User tidak ditemukan")
             }
         }
     }
 
-//    ERROR
+
     fun signOut() {
         sharedPreferences.edit().clear().apply()
         _userLD.value =null

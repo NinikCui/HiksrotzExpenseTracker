@@ -1,4 +1,4 @@
-package com.hiksrot.hiksrotzexpensetracker.view.Profile
+package com.hiksrot.hiksrotzexpensetracker.view.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,10 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.hiksrot.hiksrotzexpensetracker.R
 import com.hiksrot.hiksrotzexpensetracker.databinding.FragmentProfileBinding
-import com.hiksrot.hiksrotzexpensetracker.view.Budgeting.BudgetFragmentDirections
 import com.hiksrot.hiksrotzexpensetracker.viewmodel.ProfileViewModel
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), ProfileListener {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var viewModel: ProfileViewModel
@@ -25,10 +24,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
 
-        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
 
-        observeViewModel()
-        setupButtonListener()
 
         return binding.root
     }
@@ -41,11 +37,17 @@ class ProfileFragment : Fragment() {
         })
     }
 
-    private fun setupButtonListener() {
-        // Handle button click untuk edit profile
-        binding.buttonEditProfile.setOnClickListener {
-            val action = ProfileFragmentDirections.actionEditProfile()
-            findNavController().navigate(action)
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+        binding.listener = this
+        viewModel.loadUserData()
+        observeViewModel()
+
+    }
+
+
+    override fun onButtonEditClicked(v: View) {
+            findNavController().navigate(R.id.actionEditProfile)
     }
 }

@@ -9,6 +9,9 @@
         <variable
             name="user"
             type="com.hiksrot.hiksrotzexpensetracker.model.entities.UserEntity" />
+        <variable
+            name="editPassListener"
+            type="com.hiksrot.hiksrotzexpensetracker.view.profile.EditPassListener" />
     </data>
 
     <LinearLayout
@@ -35,7 +38,8 @@
             android:layout_height="wrap_content"
             android:hint="Old Password"
             android:inputType="textPassword"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:text="@={viewModel.oldPassword}" />
 
         <!-- New Password -->
         <EditText
@@ -44,7 +48,9 @@
             android:layout_height="wrap_content"
             android:hint="New Password"
             android:inputType="textPassword"
-            android:layout_marginBottom="16dp" />
+
+            android:layout_marginBottom="16dp"
+            android:text="@={viewModel.newPassword}" />
 
         <!-- Repeat Password -->
         <EditText
@@ -53,7 +59,8 @@
             android:layout_height="wrap_content"
             android:hint="Repeat Password"
             android:inputType="textPassword"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="24dp"
+            android:text="@={viewModel.repeatPassword}" />
 
         <!-- Button Ganti Password -->
         <Button
@@ -63,7 +70,7 @@
             android:text="GANTI PASSWORD"
             android:backgroundTint="#7B1FA2"
             android:textColor="#FFFFFF"
-            />
+            android:onClick="@{(v) -> editPassListener.onEditPasswordClicked(v)}" />
 
         <!-- Tombol Logout -->
         <Button
@@ -74,6 +81,6 @@
             android:text="LOGOUT"
             android:backgroundTint="#E53935"
             android:textColor="#FFFFFF"
-           />
+            android:onClick="@{(v) -> editPassListener.btnLogOutClicked(v)}"/>
     </LinearLayout>
 </layout>

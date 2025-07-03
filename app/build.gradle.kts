@@ -9,6 +9,7 @@ android {
     namespace = "com.hiksrot.hiksrotzexpensetracker"
     compileSdk = 35
 
+
     buildFeatures {
         viewBinding = true
         dataBinding = true
