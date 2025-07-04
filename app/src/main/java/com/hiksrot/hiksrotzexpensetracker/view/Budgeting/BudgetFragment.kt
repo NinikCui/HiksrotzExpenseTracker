@@ -51,6 +51,9 @@ class BudgetFragment : Fragment() {
         // Panggil ViewModel
         viewModel.getBudgetData(userId, currentMonth, currentYear)
 
+
+
+
         // Observe LiveData
         viewModel.budgetItems.observe(viewLifecycleOwner) { budgets ->
             val adapter = BudgetItemAdapter(budgets) { budget ->
